@@ -443,7 +443,8 @@
     function checkTaskList(){
         var total = 0;
         $.ajax({
-            url:"tBHiddenDangerHandleController.do?checkTask",
+//            url:"tBHiddenDangerHandleController.do?checkTask",
+            url:"",
             type:"GET",
             dataType:"JSON",
             async: false,
@@ -463,7 +464,8 @@
         });
 
         $.ajax({
-            url:"tBMajorHiddenDangerController.do?checkTask",
+//            url:"tBMajorHiddenDangerController.do?checkTask",
+            url:"",
             type:"GET",
             dataType:"JSON",
             async: false,

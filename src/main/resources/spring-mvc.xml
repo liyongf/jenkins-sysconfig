@@ -119,6 +119,7 @@
 
                         <!--手机客户端授权激活-->
                         <value>tBAuthController/active.do</value>
+                        <value>tBCalculateController/reportSumNumAll.do</value>
 
 					</list>
 				</property>
