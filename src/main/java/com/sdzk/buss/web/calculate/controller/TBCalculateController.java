@@ -179,8 +179,7 @@ public class TBCalculateController extends BaseController {
             logger.error(e);
             return new ApiResultJson(ApiResultJson.CODE_500,ApiResultJson.CODE_500_MSG,null);
         }
-
-        return new ApiResultJson(ApiResultJson.CODE_500,ApiResultJson.CODE_500_MSG,null);
+       return new ApiResultJson(ApiResultJson.CODE_200,ApiResultJson.CODE_200_MSG,null);
     }
 
 
