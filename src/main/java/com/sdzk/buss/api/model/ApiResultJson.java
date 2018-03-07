@@ -21,7 +21,8 @@ public class ApiResultJson {
     public static final String CODE_401_MSG="token校验失败，非法请求";
     public static final String CODE_403_MSG="用户未登录";
     public static final String CODE_500_MSG="服务器内部错误";
-    public static final String CODE_AUTH_FAIL_MSG="授权激活失败";
+    public static final String MSG_AUTH_FAIL="授权激活失败";
+    public static final String MSG_SMS_FAIL="短信发送失败";
 
     public String getCode() {
         return code;
