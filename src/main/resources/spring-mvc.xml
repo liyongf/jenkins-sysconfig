@@ -119,7 +119,12 @@
 
                         <!--手机客户端授权激活-->
                         <value>tBAuthController/active.do</value>
+
+						<!--各矿统计信息-->
                         <value>tBCalculateController/reportSumNumAll.do</value>
+
+						<!--短信发送接口-->
+						<value>tBSMSController/sendSMS.do</value>
 
 					</list>
 				</property>

@@ -207,11 +207,11 @@ public class TBAuthController extends BaseController {
                 cq.add();
                 List<TBAuthEntity> authList = this.tbAuthService.getListByCriteriaQuery(cq,false);
                 if(authList == null || authList.isEmpty()){
-                    return new ApiResultJson(ApiResultJson.CODE_500,ApiResultJson.CODE_AUTH_FAIL_MSG,null);
+                    return new ApiResultJson(ApiResultJson.CODE_500,ApiResultJson.MSG_AUTH_FAIL,null);
                 }
                 TBAuthEntity authEntity = authList.get(0);
                 if(StringUtil.isNotEmpty(authEntity.getDeviceMac()) && !authEntity.getDeviceMac().equals(mac)){
-                    return new ApiResultJson(ApiResultJson.CODE_500,ApiResultJson.CODE_AUTH_FAIL_MSG,null);
+                    return new ApiResultJson(ApiResultJson.CODE_500,ApiResultJson.MSG_AUTH_FAIL,null);
                 }
                 authEntity.setDeviceMac(mac);
                 tbAuthService.saveOrUpdate(authEntity);
