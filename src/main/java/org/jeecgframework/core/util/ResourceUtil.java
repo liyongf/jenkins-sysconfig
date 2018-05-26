@@ -69,6 +69,22 @@ public class ResourceUtil {
 	public static final String getSessionattachmenttitle(String sessionName) {
 		return bundle.getString(sessionName);
 	}
+	public static final TSUser getSessionUser() {
+		HttpSession session = ContextHolderUtils.getSession();
+		if(ClientManager.getInstance().getClient(session.getId())!=null){
+			return ClientManager.getInstance().getClient(session.getId()).getUser();
+
+		}else{
+			TSUser u = (TSUser) session.getAttribute(ResourceUtil.LOCAL_CLINET_USER);
+			Client client = new Client();
+			client.setIp("");
+			client.setLogindatetime(new Date());
+			client.setUser(u);
+			ClientManager.getInstance().addClinet(session.getId(), client);
+		}
+
+		return null;
+	}
 	public static final TSUser getSessionUserName() {
 		HttpSession session = ContextHolderUtils.getSession();
 		if(ClientManager.getInstance().getClient(session.getId())!=null){

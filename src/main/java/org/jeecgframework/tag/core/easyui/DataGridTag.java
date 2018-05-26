@@ -666,7 +666,7 @@ public class DataGridTag extends TagSupport {
 //						colModelBuffer.append(date);
 //						colModelBuffer.append("' ");
 					}
-					
+
 					if(oConvertUtils.isNotEmpty(column.getReplace())){
 						colModelBuffer.append(",formatter:replaceFormatter");
 						colModelBuffer.append(",formatoptions:{replace:");
@@ -719,10 +719,10 @@ public class DataGridTag extends TagSupport {
 		sb.append(",caption:'");
 		sb.append(title);
 		sb.append("'});");
-		
+
 		//自适应表格宽度
 //		sb.append("$(\"#"+name+"\").setGridWidth($(window).width()*0.99);");
-		
+
 		//表格顶部，查询、工具栏
 		sb.append("$('#t_"+name+"').append('");
 		if(hasQueryColum(columnList)){
@@ -733,7 +733,7 @@ public class DataGridTag extends TagSupport {
 		}
 		sb.append("<div class=\"tool_bar_div bg-info\"></div>");
 		sb.append("');");
-		
+
 		//表格顶部查询
 		if(hasQueryColum(columnList) && !columnList.isEmpty()){
 			for (DataGridColumn column : columnList) {
@@ -743,7 +743,7 @@ public class DataGridTag extends TagSupport {
 					sb.append(column.getTitle());
 					sb.append("</label>");
 					String dictionary = column.getDictionary();
-					
+
 					if(oConvertUtils.isNotEmpty(dictionary)){
 						//字典数据信息，存在两种处理方式，一种是表格元素数据，一种是字典表当中的数据
 						sb.append("<select  name=\"");
@@ -821,7 +821,7 @@ public class DataGridTag extends TagSupport {
 				}
 			}
 		}
-		
+
 		//工具栏的处理方式
 		if(toolBarList.size() > 0){
 			for (DataGridUrl toolBar : toolBarList) {
@@ -909,21 +909,21 @@ public class DataGridTag extends TagSupport {
 		sb.append("	$(\'#\'+gridname).trigger(\"reloadGrid\");" );
 		sb.append("}catch(ex){}");
 		sb.append("}");
-		
+
 		//数据替换
 		sb.append("function replaceFormatter(cellvalue,options,rec){");
 		sb.append("var formatterOptions = options.colModel.formatoptions;");
 		sb.append("var replace = formatterOptions.replace;");
 		sb.append("return replace[cellvalue];");
 		sb.append("}");
-		
+
 		//回车查询
 		sb.append("function EnterPress(e){");
 		sb.append("var e = e || window.event;");
 		sb.append("if(e.keyCode == 13){ ");
 		sb.append(name+"search();");
 		sb.append("}}");
-		
+
 		//提交查询
 		sb.append("function " + name + "search(){");
 		sb.append("try { if(! $(\"#"+name+"Form\").Validform({tiptype:3}).check()){return false;} } catch (e){}");
@@ -1223,7 +1223,11 @@ public class DataGridTag extends TagSupport {
 			sb.append("try { if(! $(\"#"+name+"Form\").Validform({tiptype:3}).check()){return false;} } catch (e){}");
 			sb.append("if(true){");
 			//update by jg_renjie at 2016/1/11 for:TASK #823 增加form实现Form表单验证
-			sb.append("var queryParams=$(\'#" + name + "\').datagrid('options').queryParams;");
+			if(treegrid) {
+				sb.append("var queryParams=$(\'#" + name + "\').treegrid('options').queryParams;");
+			} else {
+				sb.append("var queryParams=$(\'#" + name + "\').datagrid('options').queryParams;");
+			}
 			sb.append("$(\'#" + name + "tb\').find('*').each(function(){queryParams[$(this).attr('name')]=$(this).val();});");
 			sb.append("$(\'#" + name + "\')." + grid + "({url:'" + actionUrl + "&field=" + searchFields + "',pageNumber:1});" + "}}");
 
@@ -1250,7 +1254,11 @@ public class DataGridTag extends TagSupport {
 			//update by jg_renjie at 2016/1/11 for:TASK #823 增加form实现Form表单验证,此处避免reset时走验证，代码做了冗余
 			//String func = name.trim() + "search();";
 			//sb.append(func);
-			sb.append("var queryParams=$(\'#" + name + "\').datagrid('options').queryParams;");
+			if(treegrid){
+				sb.append("var queryParams=$(\'#" + name + "\').treegrid('options').queryParams;");
+			} else {
+				sb.append("var queryParams=$(\'#" + name + "\').datagrid('options').queryParams;");
+			}
 			sb.append("$(\'#" + name + "tb\').find('*').each(function(){queryParams[$(this).attr('name')]=$(this).val();});");
 			sb.append("$(\'#" + name + "\')." + grid + "({url:'" + actionUrl + "&field=" + searchFields + "',pageNumber:1});");
 			//update by jg_renjie at 2016/1/11 for:TASK #823 增加form实现Form表单验证,此处避免reset时走验证，代码做了冗余
@@ -2239,7 +2247,7 @@ public class DataGridTag extends TagSupport {
 		if (title != null) {
 			sb.append("title: \'" + title + "\',");
 		}
-		
+
 		if(autoLoadData)
 		   sb.append("url:\'" + actionUrl + "&field=" + fields + "\',");
 		else
@@ -2278,7 +2286,7 @@ public class DataGridTag extends TagSupport {
 		sb.append("frozenColumns:[[");
 		this.getField(sb,0);
 		sb.append("]],");
-		
+
 		sb.append("columns:[[");
 		this.getField(sb);
 		sb.append("]],");
@@ -2369,7 +2377,7 @@ public class DataGridTag extends TagSupport {
 			sb.append("var queryParams=$(\'#" + name + "\').datagrid('options').queryParams;");
 			sb.append("$(\'#" + name + "tb\').find('*').each(function(){queryParams[$(this).attr('name')]=$(this).val();});");
 			sb.append("$(\'#" + name + "\')." + grid + "({url:'" + actionUrl + "&field=" + searchFields + "',pageNumber:1});" + "}");
-			
+
 			//高级查询执行方法
 			sb.append("function dosearch(params){");
 			sb.append("var jsonparams=$.parseJSON(params);");
@@ -2383,7 +2391,7 @@ public class DataGridTag extends TagSupport {
 			sb.append(name+"search();");
 			sb.append("}}");
 
-				
+
 			sb.append("function searchReset(name){");
 			sb.append(" $(\"#"+name+"tb\").find(\":input\").val(\"\");");
 			String func = name.trim() + "search();";
@@ -2409,9 +2417,9 @@ public class DataGridTag extends TagSupport {
 								String[] test = col.getReplace().split(",");
 								String text = "";
 								String value = "";
-								
-								
-								
+
+
+
 								for (String string : test) {
 									String lang_key = string.split("_")[0];
 									text = MutiLangUtil.getMutiLangInstance().getLang(lang_key);
@@ -2473,7 +2481,7 @@ public class DataGridTag extends TagSupport {
 		if(toolBarList.size()>0)
 		{
 			for (DataGridUrl toolBar : toolBarList) {
-				
+
 				sb.append("<a href=\"#\" class=\"button\" plain=\"true\" icon=\""+toolBar.getIcon()+"\" ");
 				if(StringUtil.isNotEmpty(toolBar.getOnclick()))
 				{
