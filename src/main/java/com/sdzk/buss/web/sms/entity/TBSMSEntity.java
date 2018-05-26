@@ -44,6 +44,10 @@ public class TBSMSEntity implements java.io.Serializable {
     private String phoneNumber;
     /**发送状态*/
     private String handleStatus;
+    /**最高组织机构*/
+    private String topDepartNames;
+    /**服务器信息*/
+    private String serverInfo;
 
     /**创建人,录入人*/
     private String createBy;
@@ -156,6 +160,23 @@ public class TBSMSEntity implements java.io.Serializable {
     }
     public void setHandleStatus(String handleStatus) {
         this.handleStatus = handleStatus;
+    }
+
+    @Column(name ="top_depart_names",nullable=true,length=50)
+    public String getTopDepartNames() {
+        return topDepartNames;
+    }
+    public void setTopDepartNames(String topDepartNames) {
+        this.topDepartNames = topDepartNames;
+    }
+
+
+    @Column(name ="server_info",nullable=true,length=500)
+    public String getServerInfo() {
+        return serverInfo;
+    }
+    public void setServerInfo(String serverInfo) {
+        this.serverInfo = serverInfo;
     }
 
     /**

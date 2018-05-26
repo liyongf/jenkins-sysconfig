@@ -8,6 +8,7 @@
     <t:dgCol title="唯一标识"  field="id"  hidden="true" queryMode="group"  width="120" align="center"></t:dgCol>
     <t:dgCol title="集团"  field="groupName" query="true" width="120" align="center"></t:dgCol>
     <t:dgCol title="煤矿"  field="mineName" query="true" width="120" align="center"></t:dgCol>
+    <t:dgCol title="顶级组织机构"  field="topDepartNames" query="true" width="120" align="center"></t:dgCol>
     <t:dgCol title="类型"  field="type" dictionary="smsType" query="true" width="120" align="center"></t:dgCol>
     <t:dgCol title="内容"  field="content" query="true" width="120" align="center"></t:dgCol>
     <t:dgCol title="发送至"  field="phoneNumber" query="true" width="120" align="center"></t:dgCol>

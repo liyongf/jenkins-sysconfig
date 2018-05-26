@@ -180,6 +180,8 @@ public class TBSMSController extends BaseController {
             smsEntity.setPhoneNumber(phoneNumber);
             smsEntity.setRequestTime(requestDate);
             smsEntity.setHandleStatus(Constants.SMS_SEND_STATUS_NOT_SENT);
+            smsEntity.setTopDepartNames(request.getParameter("topDepartNames"));
+            smsEntity.setServerInfo(request.getParameter("serverInfo"));
             Date nowDate = new Date();
             boolean needSend = false;   //true:立即发送；false: 定时发送（待实现）
             if(nowDate.equals(requestDate) || nowDate.after(requestDate)){
