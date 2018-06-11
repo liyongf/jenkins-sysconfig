@@ -1,14 +1,17 @@
 package com.sdzk.buss.web.minedeploy.controller;
 import com.sdzk.buss.web.minedeploy.entity.TBMineDeployEntity;
 import com.sdzk.buss.web.minedeploy.service.TBMineDeployServiceI;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.math.BigDecimal;
+import java.util.*;
 import java.text.SimpleDateFormat;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.sdzk.buss.web.mineorg.entity.TBMineOrgEntity;
 import org.apache.log4j.Logger;
+import org.hibernate.transform.Transformers;
+import org.jeecgframework.core.util.*;
 import org.jeecgframework.web.system.pojo.base.TSUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,14 +27,12 @@ import org.jeecgframework.core.common.model.common.TreeChildCount;
 import org.jeecgframework.core.common.model.json.AjaxJson;
 import org.jeecgframework.core.common.model.json.DataGrid;
 import org.jeecgframework.core.constant.Globals;
-import org.jeecgframework.core.util.StringUtil;
 import org.jeecgframework.tag.core.easyui.TagUtil;
 import org.jeecgframework.web.system.pojo.base.TSDepart;
 import org.jeecgframework.web.system.service.SystemService;
-import org.jeecgframework.core.util.MyBeanUtils;
 
 import java.io.OutputStream;
-import org.jeecgframework.core.util.BrowserUtils;
+
 import org.jeecgframework.poi.excel.ExcelExportUtil;
 import org.jeecgframework.poi.excel.ExcelImportUtil;
 import org.jeecgframework.poi.excel.entity.ExportParams;
@@ -40,14 +41,11 @@ import org.jeecgframework.poi.excel.entity.TemplateExportParams;
 import org.jeecgframework.poi.excel.entity.vo.NormalExcelConstants;
 import org.jeecgframework.poi.excel.entity.vo.TemplateExcelConstants;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.jeecgframework.core.util.ResourceUtil;
+
 import java.io.IOException;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import java.util.Map;
-import java.util.HashMap;
-import org.jeecgframework.core.util.ExceptionUtil;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -60,7 +58,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.jeecgframework.core.beanvalidator.BeanValidators;
-import java.util.Set;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.net.URI;
@@ -440,5 +438,41 @@ public class TBMineDeployController extends BaseController {
 		}
 		return j;
 	}
+
+	/*************************** 根据煤矿id查询部署煤矿的风险辨识方法和分支地址  start *************************************/
+	/**
+	 * 隐患自动关联风险
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(params = "queryByMineOrgId")
+	@ResponseBody
+	public AjaxJson queryByMineOrgId(String mineOrgId, HttpServletRequest request) {
+		String message = null;
+		AjaxJson retJson = new AjaxJson();
+		message = "成功查询部署煤矿的风险辨识方法和分支地址!";
+		try {
+			if(StringUtil.isNotEmpty(mineOrgId)){
+				String sql = "select org.risk_recog_type,org.deploy_branch from t_b_mine_org org where org.ID ='" + mineOrgId + "'";
+				List<String []> orgList = systemService.findListbySql(sql);
+				if(null!=orgList && orgList.size()>0){
+					Object[] obj = (Object[]) orgList.get(0);
+					Map<String,Object> retMap = new HashMap<>();
+					retMap.put("riskRecogType",obj[0]);
+					retMap.put("deployBranch",obj[1]);
+					retJson.setObj(retMap);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			message = "查询出现异常!";
+			throw new BusinessException(e.getMessage());
+		}
+		retJson.setMsg(message);
+		return retJson;
+	}
+
+
+	/*************************** 根据煤矿id查询部署煤矿的风险辨识方法和分支地址  end **************************************/
 
 }

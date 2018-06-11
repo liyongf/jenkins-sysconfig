@@ -1,0 +1,5 @@
+alter table t_b_mine_deploy add column risk_recog_type varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '风险辨识方法';
+
+alter table t_b_mine_deploy add column deploy_branch varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '分支地址';
+
+alter table t_b_mine_deploy add column this_deploy_branch varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '本次部署分支';

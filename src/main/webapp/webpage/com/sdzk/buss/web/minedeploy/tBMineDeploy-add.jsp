@@ -20,10 +20,15 @@
 						</label>
 					</td>
 					<td class="value">
-					     	<input id="mineOrg" name="mineOrg.id" type="text" style="width: 150px" class="inputxt"  />
-							<span class="Validform_checktip"></span>
-							<label class="Validform_label" style="display: none;">部署煤矿</label>
-						</td>
+						<input id="mineOrg" name="mineOrg.id" type="text" style="width: 150px" class="inputxt" />
+						<span class="Validform_checktip"></span>
+						<label class="Validform_label" style="display: none;">部署煤矿</label>
+						<span style="display:none" class="isShow">
+							风险辨识方法 :<input id="riskRecogType" name="riskRecogType" type="hidden" style="width: 150px"/>
+							<input id="riskRecogTypeTemp" type="text" style="width: 150px"/>
+						</span>
+						<span style="display:none" class="isShow">分支地址 :<input id="deployBranch" name="deployBranch" type="text" style="width: 150px"/></span>
+					</td>
 				</tr>
 				<tr>
 					<td align="right">
@@ -49,6 +54,18 @@
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">部署时间</label>
 						</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<label class="Validform_label">
+							本次部署分支:
+						</label>
+					</td>
+					<td class="value">
+						<input id="thisDeployBranch" name="thisDeployBranch" type="text" style="width: 150px" class="inputxt" datatype="*"/>
+						<span class="Validform_checktip"></span>
+						<label class="Validform_label" style="display: none;">本次部署分支</label>
+					</td>
 				</tr>
 				<tr>
 					<td align="right">
@@ -84,6 +101,37 @@
 			 url : 'tBMineOrgController.do?getMineOrgTree',
 			 width: 155,
 			 onSelect : function(node) {
+                 var mineOrgId = node.id;
+                 if(mineOrgId==null||mineOrgId==''){
+                     tip("请先选择下级煤矿!");
+                     return;
+                 }
+                 $.ajax({
+                     url: "tBMineDeployController.do?queryByMineOrgId",
+                     type: 'post',
+                     data: {
+                         mineOrgId: mineOrgId,
+                     },
+                     success: function (data) {
+                         var d = $.parseJSON(data);
+                         if (d.success) {
+                             var riskRecogType = d.obj.riskRecogType;
+                             $("#riskRecogType").val(riskRecogType);
+							 if(riskRecogType == '0'){
+                                 $("#riskRecogTypeTemp").val("矩阵法");
+							 }else if (riskRecogType == '1'){
+                                 $("#riskRecogTypeTemp").val("LES法");
+							 }
+
+                             var deployBranch = d.obj.deployBranch;
+                             $("#deployBranch").val(deployBranch);
+
+                             $(".isShow").show();
+                         }else {
+                             tip(d.msg);
+                         }
+                     }
+                 });
 			 }
 		 });
 		 if("${isAdmin}"!="true"){

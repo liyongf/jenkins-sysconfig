@@ -3,7 +3,7 @@
 <t:base type="jquery,easyui,tools,DatePicker"></t:base>
 <div class="easyui-layout" fit="true">
   <div region="center" style="padding:0px;border:0px">
-  <t:datagrid name="tBMineDeployList" checkbox="true" pagination="true" fitColumns="true" title="矿井部署" actionUrl="tBMineDeployController.do?datagrid" onLoadSuccess="afterLoadSuccess" idField="id" fit="true" queryMode="group">
+  <t:datagrid name="tBMineDeployList" checkbox="true" pagination="true" fitColumns="true" title="矿井部署" actionUrl="tBMineDeployController.do?datagrid" idField="id" fit="true" queryMode="group">
    <t:dgCol title="ID"  field="id"  hidden="true"  queryMode="group"  width="120"></t:dgCol>
    <t:dgCol title="煤矿Id"  field="mineOrg.id" hidden="true"  width="120"></t:dgCol>
    <t:dgCol title="部署煤矿"  field="mineOrg.name" query="true"  width="120"></t:dgCol>
@@ -11,6 +11,9 @@
    <t:dgCol title="部署时间"  field="deployDate"  formatter="yyyy-MM-dd hh:mm"  query="true"  queryMode="group"  width="120"></t:dgCol>
    <t:dgCol title="更新内容"  field="deployReason" width="120"></t:dgCol>
    <t:dgCol title="备注"  field="remark" width="120"></t:dgCol>
+      <t:dgCol title="风险辨识方法"  field="riskRecogType" dictionary="riskRecogType" width="120"></t:dgCol>
+      <t:dgCol title="分支地址"  field="deployBranch" width="120"></t:dgCol>
+      <t:dgCol title="本次部署分支"  field="thisDeployBranch" width="120"></t:dgCol>
    <t:dgCol title="修改人"  field="updateName"  queryMode="group"  width="120"></t:dgCol>
    <t:dgCol title="修改时间"  field="updateDate"  formatter="yyyy-MM-dd hh:mm"  queryMode="group"  width="120"></t:dgCol>
    <t:dgCol title="修改人id"  field="updateBy"  queryMode="group"  width="120"></t:dgCol>

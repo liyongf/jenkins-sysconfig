@@ -44,6 +44,16 @@ public class TBMineDeployEntity implements java.io.Serializable {
 	/**备注*/
 	@Excel(name="备注",width=15)
 	private java.lang.String remark;
+
+	@Excel(name="风险辨识方法",width=15)
+	private java.lang.String riskRecogType;
+
+	@Excel(name="分支地址",width=15)
+	private java.lang.String deployBranch;
+
+	@Excel(name="本次部署分支",width=15)
+	private java.lang.String thisDeployBranch;
+
 	/**修改人*/
 	private java.lang.String updateName;
 	/**修改时间*/
@@ -273,5 +283,32 @@ public class TBMineDeployEntity implements java.io.Serializable {
 	}
 	public void setMineNameTemp(String mineNameTemp){
 		this.mineNameTemp = mineNameTemp;
+	}
+
+	@Column(name ="RISK_RECOG_TYPE",nullable=true,length=36)
+	public String getRiskRecogType() {
+		return riskRecogType;
+	}
+
+	public void setRiskRecogType(String riskRecogType) {
+		this.riskRecogType = riskRecogType;
+	}
+
+	@Column(name ="DEPLOY_BRANCH",nullable=true,length=500)
+	public String getDeployBranch() {
+		return deployBranch;
+	}
+
+	public void setDeployBranch(String deployBranch) {
+		this.deployBranch = deployBranch;
+	}
+
+	@Column(name ="THIS_DEPLOY_BRANCH",nullable=true,length=500)
+	public String getThisDeployBranch() {
+		return thisDeployBranch;
+	}
+
+	public void setThisDeployBranch(String thisDeployBranch) {
+		this.thisDeployBranch = thisDeployBranch;
 	}
 }
