@@ -127,9 +127,20 @@ public class TBMineDeployController extends BaseController {
 				cq.le("deployDate", new SimpleDateFormat("yyyy-MM-dd").parse(query_deployDate_end));
 			}
 
+			String mineOrg = request.getParameter("mineOrg.name");
+			if(StringUtil.isNotEmpty(mineOrg)){
+				cq.like("mineOrg.name","%"+mineOrg+"%");
+			}
+			String deployer = request.getParameter("deployer");
+			if(StringUtil.isNotEmpty(deployer)){
+				cq.like("deployer","%"+deployer+"%");
+			}
+
+
 		}catch (Exception e) {
 			throw new BusinessException(e.getMessage());
 		}
+		cq.createAlias("mineOrg","mineOrg");
 		cq.add();
 		this.tBMineDeployService.getDataGridReturn(cq, true);
 		TagUtil.datagrid(response, dataGrid);

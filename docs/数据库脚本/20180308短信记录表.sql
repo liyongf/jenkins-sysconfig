@@ -18,7 +18,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 -- Table structure for t_b_sms
 -- ----------------------------
-DROP TABLE IF EXISTS `t_b_sms`;
+-- DROP TABLE IF EXISTS `t_b_sms`;
 CREATE TABLE `t_b_sms` (
   `id` varchar(32) NOT NULL COMMENT '唯一标识',
   `group_code` varchar(50) DEFAULT NULL COMMENT '集团编码',
