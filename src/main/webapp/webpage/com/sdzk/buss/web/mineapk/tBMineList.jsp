@@ -28,7 +28,7 @@
    <t:dgCol title="ID"  field="id" treefield="id" hidden="true"  queryMode="group"  width="120"></t:dgCol>
    <t:dgCol title="名称"  field="name" queryMode="group" treefield="text" width="120"></t:dgCol>
    <t:dgCol title="类型"  field="type"  queryMode="group" dictionary="mineOrgType" treefield="fieldMap.type" width="120"></t:dgCol>
-   <t:dgCol title="apk最新版本"  field="lastApkVersionName"  queryMode="group" treefield="fieldMap.lastApkVersionName" width="120"></t:dgCol>
+   <t:dgCol title="apk当前版本"  field="appVersion"  queryMode="group" treefield="fieldMap.appVersion" width="120"></t:dgCol>
       <t:dgCol title="操作" field="opt" width="100"></t:dgCol>
       <t:dgFunOpt funname="setApk(id)" title="apk配置" urlclass="ace_button" urlfont="fa-cog"></t:dgFunOpt>
   </t:datagrid>
@@ -58,7 +58,6 @@
  });
 
   function setApk(mineId){
-      debugger;
     if(li_east == 0){
      $('#system_function_functionList').layout('expand','east');
     }

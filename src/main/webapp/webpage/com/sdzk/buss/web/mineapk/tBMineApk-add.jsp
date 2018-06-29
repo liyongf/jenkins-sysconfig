@@ -114,7 +114,7 @@
 				<tr>
 					<td align="right">
 						<label class="Validform_label">
-							apk存放地址:
+							apk文件:
 						</label>
 					</td>
 					<td class="value" colspan="3">
@@ -123,7 +123,7 @@
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">apk存放地址</label>--%>
 							<input type="hidden" id="bussId" name="bussId" />
-								<t:upload name="fiels" buttonText="上传apk" uploader="tBMineApkController.do;jsessionid=${pageContext.session.id}?doAddApk&typecode=${typecode}" multi="true" extend="*.apk" id="file_upload" formData="bussId,jsessionid"></t:upload>
+								<t:upload name="fiels" buttonText="上传apk" uploader="tBMineApkController.do;jsessionid=${pageContext.session.id}?doAddApk&typecode=${typecode}" multi="false" extend="*.apk" id="file_upload" formData="bussId,jsessionid"></t:upload>
 							<div id="filediv" style="height: 50px">
 
 							</div>
@@ -146,7 +146,7 @@
 						</label>
 					</td>
 					<td class="value">
-					     	 <input id="size" name="size" type="text" style="width: 150px" class="inputxt"  datatype="n"  ignore="ignore" />
+					     	 <input id="size" name="size" type="text" style="width: 150px" class="inputxt"  ignore="ignore" />
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">apk文件大小</label>
 						</td>

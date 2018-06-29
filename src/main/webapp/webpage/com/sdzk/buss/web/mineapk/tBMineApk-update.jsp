@@ -150,7 +150,7 @@
 					<tr>
 						<td>
 							<label class="Validform_label">
-								上传APK:
+								apk文件:
 							</label>
 						</td>
 						<td class="value" colspan="3">
@@ -179,7 +179,7 @@
 							</label>
 						</td>
 						<td class="value">
-						    <input id="size" name="size" type="text" style="width: 150px" class="inputxt"  datatype="n"  ignore="ignore"  value='${tBMineApkPage.size}'/>
+						    <input id="size" name="size" type="text" style="width: 150px" class="inputxt"  value='${tBMineApkPage.size}'/>
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">apk文件大小</label>
 						</td>

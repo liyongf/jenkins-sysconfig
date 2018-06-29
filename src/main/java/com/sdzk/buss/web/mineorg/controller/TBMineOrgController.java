@@ -193,6 +193,7 @@ public class TBMineOrgController extends BaseController {
 		fieldMap.put("createDateTemp", "createDateTemp");
 		fieldMap.put("updateDateTemp", "updateDateTemp");
 		fieldMap.put("mineId", "mineId");
+		fieldMap.put("appVersion", "appVersion");
 		treeGridModel.setFieldMap(fieldMap);
 		treeGrids = systemService.treegrid(mineOrgList, treeGridModel);
 
@@ -353,6 +354,9 @@ public class TBMineOrgController extends BaseController {
 		message = "矿井组织机构更新成功";
 		TBMineOrgEntity t = tBMineOrgService.get(TBMineOrgEntity.class, tBMineOrg.getId());
 		try {
+			if(null!=tBMineOrg.getParentOrg() && StringUtil.isEmpty(tBMineOrg.getParentOrg().getId())){
+				tBMineOrg.setParentOrg(null);
+			}
 			MyBeanUtils.copyBeanNotNull2Bean(tBMineOrg, t);
 			tBMineOrgService.saveOrUpdate(t);
 			systemService.addLog(message, Globals.Log_Type_UPDATE, Globals.Log_Leavel_INFO);

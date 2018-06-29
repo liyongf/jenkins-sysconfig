@@ -264,6 +264,7 @@ public class TBMineApkController extends BaseController {
 			if(Constants.YES.equals(tBMineApk.getIsCurrentVersion())){
 				if(StringUtil.isNotEmpty(tBMineApk.getMineId())) {
 					systemService.executeSql("update t_b_mine_apk set is_current_version='0' where mine_id='" + tBMineApk.getMineId() + "'");
+					systemService.executeSql("update t_b_mine_org set app_version='"+tBMineApk.getVersionName()+"' where id='" + tBMineApk.getMineId() + "'");
 				} else {
 					systemService.executeSql("update t_b_mine_apk set is_current_version='0' where mine_id is null");
 				}
@@ -300,6 +301,7 @@ public class TBMineApkController extends BaseController {
 			if(Constants.YES.equals(tBMineApk.getIsCurrentVersion())){
 				if(StringUtil.isNotEmpty(tBMineApk.getMineId())) {
 					systemService.executeSql("update t_b_mine_apk set is_current_version='0' where mine_id='" + tBMineApk.getMineId() + "'");
+					systemService.executeSql("update t_b_mine_org set app_version='"+tBMineApk.getVersionName()+"' where id='" + tBMineApk.getMineId() + "'");
 				} else {
 					systemService.executeSql("update t_b_mine_apk set is_current_version='0' where mine_id is null");
 				}
@@ -422,5 +424,23 @@ public class TBMineApkController extends BaseController {
 		}
 		j.setMsg(message);
 		return j;
+	}
+
+	@RequestMapping(params = "getCurrentApkInfo")
+	@ResponseBody
+	public AjaxJson getCurrentApkInfo(HttpServletRequest request, String mineCode) {
+		AjaxJson aj = new AjaxJson();
+		String sql = "select is_silent isSilent, is_force isForce, is_auto_install isAutoInstall, is_ignorable isIgnorable, \n" +
+				"version_code versionCode, version_name versionName, update_content updateContent, url url, md5 md5, size size " +
+				"from t_b_mine_org org, t_b_mine_apk apk where org.id=apk.mine_id and org.app_code='" + mineCode +
+				"' and org.delete_flag!='1' and apk.is_delete!='1' and apk.is_current_version='1'";
+		List<Map<String,Object>> list = this.systemService.findForJdbc(sql);
+		if(null!=list && list.size()>0) {
+			aj.setObj(list.get(0));
+		} else {
+			aj.setSuccess(false);
+			aj.setMsg("未找到指定的apk");
+		}
+		return aj;
 	}
 }
