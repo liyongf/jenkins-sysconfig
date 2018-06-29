@@ -126,6 +126,8 @@
 						<!--短信发送接口-->
 						<value>tBSMSController/sendSMS.do</value>
 
+						<value>tBMineApkController.do?getCurrentApkInfo</value>
+
 					</list>
 				</property>
 			</bean>
