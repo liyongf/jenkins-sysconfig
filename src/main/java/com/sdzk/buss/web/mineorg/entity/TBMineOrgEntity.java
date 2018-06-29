@@ -87,6 +87,13 @@ public class TBMineOrgEntity implements java.io.Serializable {
 	@Excel(name="上级单位",width=15)
 	private TBMineOrgEntity parentOrg;
 	private List<TBMineOrgEntity> childOrgs = new ArrayList<TBMineOrgEntity>();//下属单位
+
+	/**app关联标识*/
+	@Excel(name="app关联标识",width=15)
+	private java.lang.String appCode;
+	/**当前app版本*/
+	@Excel(name="当前apk版本",width=15)
+	private java.lang.String appVersion;
 	/**
 	 *方法: 取得java.lang.String
 	 *@return: java.lang.String  ID
@@ -460,4 +467,39 @@ public class TBMineOrgEntity implements java.io.Serializable {
 	public void setLastDeployer(String lastDeployer){
 		this.lastDeployer = lastDeployer;
 	}
+
+	/**
+	 *方法: 取得java.lang.String
+	 *@return: java.lang.String  app关联标识
+	 */
+	@Column(name ="app_code",nullable=true,length=500)
+	public java.lang.String getAppCode(){
+		return this.appCode;
+	}
+
+	/**
+	 *方法: 设置java.lang.String
+	 *@param: java.lang.String  app关联标识
+	 */
+	public void setAppCode(java.lang.String appCode){
+		this.appCode = appCode;
+	}
+
+	/**
+	 *方法: 取得java.lang.String
+	 *@return: java.lang.String  当前app版本
+	 */
+	@Column(name ="app_version",nullable=true,length=500)
+	public java.lang.String getAppVersion(){
+		return this.appVersion;
+	}
+
+	/**
+	 *方法: 设置java.lang.String
+	 *@param: java.lang.String  当前app版本
+	 */
+	public void setAppVersion(java.lang.String appVersion){
+		this.appVersion = appVersion;
+	}
+
 }

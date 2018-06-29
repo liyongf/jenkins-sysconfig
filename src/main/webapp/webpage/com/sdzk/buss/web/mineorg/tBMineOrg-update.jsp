@@ -175,6 +175,19 @@
 			</td>
 		</tr>
 		</c:if>
+		<tr>
+			<td align="right">
+				<label class="Validform_label">
+					app关联标识:
+				</label>
+			</td>
+			<td class="value" colspan="3">
+				<input id="appCode" name="appCode" type="text" style="width: 150px" class="inputxt" value="${tBMineOrgPage.appCode}" />
+					<%--<textarea id="appCode" name="appCode" type="text" style="width: 150px" ></textarea>--%>
+				<span class="Validform_checktip"></span>
+				<label class="Validform_label" style="display: none;">app关联标识</label>
+			</td>
+		</tr>
 	</table>
 </t:formvalid>
 </body>

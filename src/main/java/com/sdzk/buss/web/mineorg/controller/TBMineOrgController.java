@@ -192,6 +192,7 @@ public class TBMineOrgController extends BaseController {
 		fieldMap.put("lastDeployTimeTemp", "lastDeployTimeTemp");
 		fieldMap.put("createDateTemp", "createDateTemp");
 		fieldMap.put("updateDateTemp", "updateDateTemp");
+		fieldMap.put("mineId", "mineId");
 		treeGridModel.setFieldMap(fieldMap);
 		treeGrids = systemService.treegrid(mineOrgList, treeGridModel);
 

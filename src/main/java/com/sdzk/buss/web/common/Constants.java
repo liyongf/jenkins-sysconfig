@@ -23,4 +23,12 @@ public class Constants {
     public static final String TYPE_GROUP_ORIGIN_MINE = "2";
 
 
+    /**
+     * 数据字典来源 系统通用是否
+     * 0 = 否
+     * 1 = 是
+     */
+    public static final String YES = "1";
+    public static final String NO = "0";
+
 }
