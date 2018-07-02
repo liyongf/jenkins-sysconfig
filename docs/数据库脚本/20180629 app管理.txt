@@ -26,3 +26,8 @@ CREATE TABLE `t_b_mine_apk` (
 alter table t_b_mine_org add column app_code varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'app关联标识,用于手机端接口';
 
 alter table t_b_mine_org add column app_version varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '当前app版本';
+
+INSERT INTO `t_s_typegroup` (`ID`, `typegroupcode`, `typegroupname`, `create_date`, `create_name`, `origin`) VALUES ('402883f364454f7b01644552a8de0001', 'yesOrNo', '是否', NULL, NULL, '2');
+
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('402883f364454f7b01644552d81f0003', '1', '是', NULL, '402883f364454f7b01644552a8de0001', '2018-06-28 15:36:54', '管理员');
+INSERT INTO `t_s_type` (`ID`, `typecode`, `typename`, `typepid`, `typegroupid`, `create_date`, `create_name`) VALUES ('402883f364454f7b01644552eeab0005', '0', '否', NULL, '402883f364454f7b01644552a8de0001', '2018-06-28 15:37:00', '管理员');
