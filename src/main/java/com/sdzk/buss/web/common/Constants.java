@@ -31,4 +31,10 @@ public class Constants {
     public static final String YES = "1";
     public static final String NO = "0";
 
+
+    /**未删除**/
+    public static final String IS_DELETE_N = "0";
+    /**已删除**/
+    public static final String IS_DELETE_Y = "1";
+
 }

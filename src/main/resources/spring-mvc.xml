@@ -126,6 +126,9 @@
 						<!--短信发送接口-->
 						<value>tBSMSController/sendSMS.do</value>
 
+						<!--矿图管理接口-->
+						<value>tBMapManageController.do?receive</value>
+
 						<value>tBMineApkController.do?getCurrentApkInfo</value>
 						<value>commonController.do?viewFile</value>
 					</list>
