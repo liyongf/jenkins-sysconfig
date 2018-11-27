@@ -1,4 +1,5 @@
 package com.sdzk.buss.web.mineapk.controller;
+import com.sdzk.buss.api.model.ApiResultJson;
 import com.sdzk.buss.web.common.Constants;
 import com.sdzk.buss.web.mineapk.entity.TBMineApkEntity;
 import com.sdzk.buss.web.mineapk.service.TBMineApkServiceI;
@@ -427,21 +428,39 @@ public class TBMineApkController extends BaseController {
 		return j;
 	}
 
+//	@RequestMapping(params = "getCurrentApkInfo")
+//	@ResponseBody
+//	public AjaxJson getCurrentApkInfo(HttpServletRequest request, String mineCode) {
+//		AjaxJson aj = new AjaxJson();
+//		String sql = "select is_silent isSilent, is_force isForce, is_auto_install isAutoInstall, is_ignorable isIgnorable, \n" +
+//				"version_code versionCode, version_name versionName, update_content updateContent, url url, md5 md5, size size " +
+//				"from t_b_mine_org org, t_b_mine_apk apk where org.id=apk.mine_id and org.app_code='" + mineCode +
+//				"' and (org.delete_flag is null or org.delete_flag!='1') and (apk.is_delete is null or apk.is_delete!='1') and apk.is_current_version='1'";
+//		List<Map<String,Object>> list = this.systemService.findForJdbc(sql);
+//		if(null!=list && list.size()>0) {
+//			aj.setObj(list.get(0));
+//		} else {
+//			aj.setSuccess(false);
+//			aj.setMsg("未找到指定的apk");
+//		}
+//		return aj;
+//	}
+
 	@RequestMapping(params = "getCurrentApkInfo")
 	@ResponseBody
-	public AjaxJson getCurrentApkInfo(HttpServletRequest request, String mineCode) {
-		AjaxJson aj = new AjaxJson();
-		String sql = "select is_silent isSilent, is_force isForce, is_auto_install isAutoInstall, is_ignorable isIgnorable, \n" +
-				"version_code versionCode, version_name versionName, update_content updateContent, url url, md5 md5, size size " +
+	public ApiResultJson getCurrentApkInfo(HttpServletRequest request, String mineCode) {
+		ApiResultJson rj = new ApiResultJson();
+		String sql = "select is_force isForce, version_code versionCode, update_content updateContent, url url, md5 md5, size size " +
 				"from t_b_mine_org org, t_b_mine_apk apk where org.id=apk.mine_id and org.app_code='" + mineCode +
 				"' and (org.delete_flag is null or org.delete_flag!='1') and (apk.is_delete is null or apk.is_delete!='1') and apk.is_current_version='1'";
 		List<Map<String,Object>> list = this.systemService.findForJdbc(sql);
 		if(null!=list && list.size()>0) {
-			aj.setObj(list.get(0));
+			rj.setCode(ApiResultJson.CODE_200);
+			rj.setData(list.get(0));
 		} else {
-			aj.setSuccess(false);
-			aj.setMsg("未找到指定的apk");
+			rj.setCode(ApiResultJson.CODE_202);
+			rj.setMessage("未找到指定的apk");
 		}
-		return aj;
+		return rj;
 	}
 }
