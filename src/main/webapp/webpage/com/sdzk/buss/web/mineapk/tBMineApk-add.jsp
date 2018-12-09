@@ -83,7 +83,7 @@
 						</label>
 					</td>
 					<td class="value">
-					        <input id="versionCode" name="versionCode" type="text" style="width: 150px" class="inputxt"  datatype="n"  ignore="ignore" />
+					        <input id="versionCode" name="versionCode" type="text" style="width: 150px" class="inputxt"  datatype="*"  ignore="ignore" />
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">版本号编码</label>
 						</td>

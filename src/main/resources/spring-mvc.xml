@@ -130,6 +130,7 @@
 						<value>tBMapManageController.do?receive</value>
 
 						<value>tBMineApkController.do?getCurrentApkInfo</value>
+						<value>tBMineApkController.do?getCurrentApkInfo2</value>
 						<value>commonController.do?viewFile</value>
 					</list>
 				</property>

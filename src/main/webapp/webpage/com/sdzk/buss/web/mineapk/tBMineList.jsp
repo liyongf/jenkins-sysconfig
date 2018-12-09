@@ -45,7 +45,7 @@
 	onCollapse : function() {
 	    li_east = 0;
 	}"
-     style="width: 1200px; overflow: hidden;">
+     style="width: 800px; overflow: hidden;">
  <div class="easyui-panel" style="padding:0px;border:0px" fit="true" border="false" id="settingApkPanel"></div>
 </div>
  <script src = "webpage/com/sdzk/buss/web/mineorg/tBMineOrgList.js"></script>

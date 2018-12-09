@@ -428,29 +428,29 @@ public class TBMineApkController extends BaseController {
 		return j;
 	}
 
-//	@RequestMapping(params = "getCurrentApkInfo")
-//	@ResponseBody
-//	public AjaxJson getCurrentApkInfo(HttpServletRequest request, String mineCode) {
-//		AjaxJson aj = new AjaxJson();
-//		String sql = "select is_silent isSilent, is_force isForce, is_auto_install isAutoInstall, is_ignorable isIgnorable, \n" +
-//				"version_code versionCode, version_name versionName, update_content updateContent, url url, md5 md5, size size " +
-//				"from t_b_mine_org org, t_b_mine_apk apk where org.id=apk.mine_id and org.app_code='" + mineCode +
-//				"' and (org.delete_flag is null or org.delete_flag!='1') and (apk.is_delete is null or apk.is_delete!='1') and apk.is_current_version='1'";
-//		List<Map<String,Object>> list = this.systemService.findForJdbc(sql);
-//		if(null!=list && list.size()>0) {
-//			aj.setObj(list.get(0));
-//		} else {
-//			aj.setSuccess(false);
-//			aj.setMsg("未找到指定的apk");
-//		}
-//		return aj;
-//	}
-
 	@RequestMapping(params = "getCurrentApkInfo")
 	@ResponseBody
-	public ApiResultJson getCurrentApkInfo(HttpServletRequest request, String mineCode) {
+	public AjaxJson getCurrentApkInfo(HttpServletRequest request, String mineCode) {
+		AjaxJson aj = new AjaxJson();
+		String sql = "select is_silent isSilent, is_force isForce, is_auto_install isAutoInstall, is_ignorable isIgnorable, \n" +
+				"version_code versionCode, version_name versionName, update_content updateContent, url url, md5 md5, size size " +
+				"from t_b_mine_org org, t_b_mine_apk apk where org.id=apk.mine_id and org.app_code='" + mineCode +
+				"' and (org.delete_flag is null or org.delete_flag!='1') and (apk.is_delete is null or apk.is_delete!='1') and apk.is_current_version='1'";
+		List<Map<String,Object>> list = this.systemService.findForJdbc(sql);
+		if(null!=list && list.size()>0) {
+			aj.setObj(list.get(0));
+		} else {
+			aj.setSuccess(false);
+			aj.setMsg("未找到指定的apk");
+		}
+		return aj;
+	}
+
+	@RequestMapping(params = "getCurrentApkInfo2")
+	@ResponseBody
+	public ApiResultJson getCurrentApkInfo2(HttpServletRequest request, String mineCode) {
 		ApiResultJson rj = new ApiResultJson();
-		String sql = "select is_force isForce, version_code versionCode, update_content updateContent, url url, md5 md5, size size " +
+		String sql = "select is_force isForce, version_code versionCode,version_name versionName, update_content updateContent, url url, md5 md5, size size " +
 				"from t_b_mine_org org, t_b_mine_apk apk where org.id=apk.mine_id and org.app_code='" + mineCode +
 				"' and (org.delete_flag is null or org.delete_flag!='1') and (apk.is_delete is null or apk.is_delete!='1') and apk.is_current_version='1'";
 		List<Map<String,Object>> list = this.systemService.findForJdbc(sql);
