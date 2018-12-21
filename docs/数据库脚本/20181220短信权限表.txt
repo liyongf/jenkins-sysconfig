@@ -1,0 +1,8 @@
+CREATE TABLE `t_b_sms_mine`(
+  `id` varchar(32) NOT NULL COMMENT '唯一标识',
+  `mine_code` varchar(50) DEFAULT NULL COMMENT '矿井编码',
+  `mine_name` varchar(50) DEFAULT NULL COMMENT '矿井名称',
+  `begin_mine_date` datetime DEFAULT NULL COMMENT '授权时间开始',
+  `end_mine_date` datetime DEFAULT NULL COMMENT '授权时间结束',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

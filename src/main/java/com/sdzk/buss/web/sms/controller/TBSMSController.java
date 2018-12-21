@@ -3,6 +3,7 @@ package com.sdzk.buss.web.sms.controller;
 import com.sdzk.buss.api.model.ApiResultJson;
 import com.sdzk.buss.web.common.Constants;
 import com.sdzk.buss.web.sms.entity.TBSMSEntity;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.jeecgframework.core.common.controller.BaseController;
 import org.jeecgframework.core.common.exception.BusinessException;
@@ -25,6 +26,8 @@ import com.sdzk.buss.web.common.utils.SMSSenderUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Title: Controller
@@ -144,7 +147,14 @@ public class TBSMSController extends BaseController {
             String mineName = request.getParameter("mineName");
             if(StringUtil.isEmpty(mineName)){
                 return new ApiResultJson(ApiResultJson.CODE_400,ApiResultJson.CODE_400_MSG + ":mineName",null);
+            }else {
+                String sql="select id from t_b_sms_mine where mine_name='"+mineName+"'";
+                List<String> idList=systemService.findListbySql(sql);
+                if(idList==null||idList.size()<=0){
+                    return new ApiResultJson(ApiResultJson.CODE_400,ApiResultJson.CODE_400_MSG + ":mineName",null);
+                }
             }
+
             String mineCode = request.getParameter("mineCode");
             if(StringUtil.isEmpty(mineCode)){
                 //return new ApiResultJson(ApiResultJson.CODE_400,ApiResultJson.CODE_400_MSG + ":mineCode",null);
@@ -154,6 +164,28 @@ public class TBSMSController extends BaseController {
             String requestTime = request.getParameter("requestTime");
             if(StringUtil.isEmpty(requestTime)){
                 return new ApiResultJson(ApiResultJson.CODE_400,ApiResultJson.CODE_400_MSG + ":requestTime",null);
+            }else {
+                if(StringUtils.isNotBlank(mineName)){
+                    String sqlb="select begin_mine_date from t_b_sms_mine where mine_name='"+mineName+"'";
+                    String sqle="select end_mine_date from t_b_sms_mine where mine_name='"+mineName+"'";
+                    List<Date> beginList=systemService.findListbySql(sqlb);
+                    List<Date> endList=systemService.findListbySql(sqle);
+                    Date beginTime=beginList.get(0);
+                    Date endTime=endList.get(0);
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    Date requestTimeNew=sdf.parse(requestTime);
+                    /*Date beginTimeNew=sdf.format(beginTime);
+                    Date endTimeNew=sdf.parse(endTime);*/
+                    if(requestTimeNew.getTime()>endTime.getTime()){
+                        return new ApiResultJson(ApiResultJson.CODE_400,ApiResultJson.CODE_400_MSG + ":requestTime",null);
+                    }
+                    if(requestTimeNew.getTime()<beginTime.getTime()){
+                        return new ApiResultJson(ApiResultJson.CODE_400,ApiResultJson.CODE_400_MSG + ":requestTime",null);
+                    }
+                    /*String sqlt="select begin_mine_date,end_mine_date from t_b_sms_mine where mine_name='"+mineName+"'";
+                    List<Map<String,Object>> timeList=systemService.findForJdbc(sqlt);*/
+
+                }
             }
             String type = request.getParameter("type");
             if(StringUtil.isEmpty(type)){
@@ -193,7 +225,7 @@ public class TBSMSController extends BaseController {
             //发送短信
             needSend = true;
             if(needSend){
-                String ret = SMSSenderUtil.sendSMS(content, phoneNumber);
+                String ret = SMSSenderUtil.sendSMS2(content, phoneNumber);
                 smsEntity.setSendTime(nowDate);
                 if(null!=ret){
                     smsEntity.setHandleStatus(Constants.SMS_SEND_STATUS_SENT_SUCCESS);
