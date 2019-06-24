@@ -230,11 +230,13 @@ public class TBSMSController extends BaseController {
             needSend = true;
             if(needSend){
                 String ret = SMSSenderUtil.sendSMS2(content, phoneNumber);
+                //LogUtil.error("短信发送返回["+ret+"']["+phoneNumber+"]" );
                 smsEntity.setSendTime(nowDate);
                 if(null!=ret){
                     Document doc =  DocumentHelper.parseText(ret);
-                    Element rootElt = doc.getRootElement(); // 获取根节点
-                    Element returnsms = rootElt.element("returnsms"); // 获取根节点下的子节点head
+//                    Element rootElt = doc.getRootElement(); // 获取根节点
+//                    Element returnsms = rootElt.element("returnsms"); // 获取根节点下的子节点head
+                    Element returnsms = doc.getRootElement(); // 获取根节点
                     String returnstatus = returnsms.elementTextTrim("returnstatus");
                     String code = returnsms.elementTextTrim("code");
                     String remark = returnsms.elementTextTrim("remark");
