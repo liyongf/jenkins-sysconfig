@@ -5,6 +5,9 @@ import com.sdzk.buss.web.common.Constants;
 import com.sdzk.buss.web.sms.entity.TBSMSEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import org.jeecgframework.core.common.controller.BaseController;
 import org.jeecgframework.core.common.exception.BusinessException;
 import org.jeecgframework.core.common.hibernate.qbc.CriteriaQuery;
@@ -26,6 +29,7 @@ import com.sdzk.buss.web.common.utils.SMSSenderUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -228,8 +232,22 @@ public class TBSMSController extends BaseController {
                 String ret = SMSSenderUtil.sendSMS2(content, phoneNumber);
                 smsEntity.setSendTime(nowDate);
                 if(null!=ret){
-                    smsEntity.setHandleStatus(Constants.SMS_SEND_STATUS_SENT_SUCCESS);
-                    this.systemService.save(smsEntity);
+                    Document doc =  DocumentHelper.parseText(ret);
+                    Element rootElt = doc.getRootElement(); // 获取根节点
+                    Element returnsms = rootElt.element("returnsms"); // 获取根节点下的子节点head
+                    String returnstatus = returnsms.elementTextTrim("returnstatus");
+                    String code = returnsms.elementTextTrim("code");
+                    String remark = returnsms.elementTextTrim("remark");
+                    if("success".equals(returnstatus)){
+                        smsEntity.setHandleStatus(Constants.SMS_SEND_STATUS_SENT_SUCCESS);
+                        this.systemService.save(smsEntity);
+                    } else {
+                        smsEntity.setHandleStatus(Constants.SMS_SEND_STATUS_SENT_FAILURE);
+                        this.systemService.save(smsEntity);
+                        LogUtil.error("短信发送失败["+smsEntity.getId()+":" + smsEntity.getContent() + "], return code:"+code+",remark:"+remark );
+                        return new ApiResultJson(ApiResultJson.CODE_202,ApiResultJson.MSG_SMS_FAIL,null);
+                    }
+
                 } else {
                     smsEntity.setHandleStatus(Constants.SMS_SEND_STATUS_SENT_FAILURE);
                     this.systemService.save(smsEntity);
