@@ -47,7 +47,7 @@ public interface CommonService {
 	 * 根据实体名称和主键获取实体
 	 * 
 	 * @param <T>
-	 * @param entityName
+	 * @param
 	 * @param id
 	 * @return
 	 */

@@ -1,0 +1,18 @@
+create table t_b_ip_server_config(
+id VARCHAR(32) PRIMARY KEY COMMENT "主键Id",
+public_ip varchar(32) NOT NULL COMMENT "公网ip",
+private_ip varchar(32)  NULL COMMENT "私有ip",
+pass_word  varchar(32)  NULL COMMENT "密码",
+recevice_man varchar(32) NULL COMMENT "密码接收人",
+create_date datetime DEFAULT NULL COMMENT '创建日期',
+update_date datetime DEFAULT NULL COMMENT '更新日期'
+);
+
+create table t_b_ip_log(
+id VARCHAR(32) PRIMARY KEY COMMENT "主键Id",
+server_id varchar(32)  NULL COMMENT "服务器id",
+private_ip varchar(32)  NULL COMMENT "私有ip",
+pass_word  varchar(32)  NULL COMMENT "密码",
+recevice_man varchar(32) NULL COMMENT "密码接收人",
+create_date datetime DEFAULT NULL COMMENT '创建日期'
+);

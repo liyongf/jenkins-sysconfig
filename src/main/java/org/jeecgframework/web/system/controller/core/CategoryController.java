@@ -72,7 +72,7 @@ public class CategoryController extends BaseController {
 	 * @param request
 	 * @param response
 	 * @param dataGrid
-	 * @param user
+	 * @param
 	 */
 
 	@SuppressWarnings("unchecked")
@@ -127,7 +127,7 @@ public class CategoryController extends BaseController {
 	/**
 	 * 添加分类管理
 	 * 
-	 * @param ids
+	 * @param
 	 * @return
 	 */
 	@RequestMapping(params = "save")

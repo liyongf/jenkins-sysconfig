@@ -28,6 +28,7 @@ import org.jeecgframework.web.system.pojo.base.TSOperation;
 import org.jeecgframework.web.system.pojo.base.TSUser;
 import org.jeecgframework.web.system.service.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -84,8 +85,29 @@ public class AuthInterceptor implements HandlerInterceptor {
 		if (requestPath.length()>3&&"api/".equals(requestPath.substring(0,4))) {
 			return true;
 		}
-
-		if (excludeUrls.contains(requestPath)) {
+		String uri = request.getRequestURI();
+		AntPathMatcher antPathMatcher = new AntPathMatcher();
+		Boolean requestStatus = false;
+		if (excludeUrls != null && excludeUrls.size()>0) {
+			for (int i=0;i<excludeUrls.size();i++) {
+				String excludeUrl = excludeUrls.get(i);
+				//按 do?xx 校验
+				requestStatus = antPathMatcher.match(excludeUrl, requestPath);
+				if (requestStatus) {
+					break;
+				}
+				//按 do 校验
+				requestStatus = antPathMatcher.match(excludeUrl, uri);
+				if (requestStatus) {
+					break;
+				}
+			}
+		}
+//
+//		if (excludeUrls.contains(requestPath)) {
+//			return true;
+//		} else
+		if (requestStatus) {
 			return true;
 		} else {
 			//步骤二： 权限控制，优先重组请求URL(考虑online请求前缀一致问题)
