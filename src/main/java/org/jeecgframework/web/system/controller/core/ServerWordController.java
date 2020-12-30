@@ -379,4 +379,61 @@ public class ServerWordController extends BaseController {
 	}
 
 
+	/**
+	 * 用户列表页面跳转
+	 *
+	 * @return
+	 */
+	@RequestMapping(params = "personalIpList")
+	public ModelAndView personalIpList(HttpServletRequest request) {
+		// 给部门查询条件中的下拉框准备数据
+		/*List<IpServerConfig> departList = systemService.getList(IpServerConfig.class);
+		request.setAttribute("departsReplace", RoletoJson.listToReplaceStr(departList, "departname", "id"));
+		departList.clear();
+		return "com/sdzk/buss/web/ipServer/ipServerList";*/
+		return new ModelAndView("com/sdzk/buss/web/ipServer/personalIpList");
+	}
+
+
+	/**
+	 * easyuiAJAX用户列表请求数据
+	 * @param request
+	 * @param response
+	 * @param dataGrid
+	 */
+	@RequestMapping(params = "personalDatagrid")
+	public void personalDatagrid(IpServerConfig ipServerConfig, HttpServletRequest request, HttpServletResponse response, DataGrid dataGrid) {
+
+		String user = ResourceUtil.getSessionUserName().getRealName();
+
+		CriteriaQuery cq = new CriteriaQuery(IpServerConfig.class, dataGrid);
+		//查询条件组装器
+		//org.jeecgframework.core.extend.hqlsearch.HqlGenerateUtil.installHql(cq, ipServerConfig, request.getParameterMap());
+		/*String queryHandleStatus = request.getParameter("queryHandleStatus");
+		*/
+		String publicIp= request.getParameter("publicIp");
+		String privateIp= request.getParameter("privateIp");
+		try{
+			//自定义追加查询条件
+			if(StringUtils.isNotBlank(user)){
+				cq.eq("receviceMan",user);
+			}
+			if(StringUtils.isNotBlank(publicIp)){
+				cq.eq("publicIp",publicIp);
+			}
+			if(StringUtils.isNotBlank(privateIp)){
+				cq.eq("privateIp",privateIp);
+			}
+
+		}catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
+
+		cq.add();
+		this.serverWordService.getDataGridReturn(cq, true);
+		TagUtil.datagrid(response, dataGrid);
+
+
+	}
+
 }
