@@ -1,0 +1,4 @@
+ALTER TABLE t_b_ip_server_config ADD ip_name varchar(50) DEFAULT NULL COMMENT '服务器名称';
+ALTER TABLE  t_b_ip_server_config add column limit_date datetime COMMENT "服务器到期时间";
+ALTER TABLE  t_b_ip_server_config add column begin_date datetime COMMENT "服务器开启时间";
+ALTER TABLE t_b_ip_server_config ADD opt_system varchar(50) DEFAULT NULL COMMENT '服务器操作系统';

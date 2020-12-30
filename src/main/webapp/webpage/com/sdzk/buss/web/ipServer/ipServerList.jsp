@@ -9,10 +9,15 @@
 	<div region="center" style="padding:0px;border:0px">
 		<t:datagrid name="ipServerConfigList" checkbox="true" pagination="true" fitColumns="true" title="三违信息" actionUrl="serverWordController.do?datagrid" idField="id" fit="true" queryMode="group" sortName="createDate" sortOrder="desc">
 			<t:dgCol title="主键"  field="id"  hidden="true"  queryMode="group"  width="120" align="center"></t:dgCol>
+
+			<t:dgCol title="服务器名称"  field="ipName" hidden="false"  queryMode="single" sortable="false" width="60" align="center"></t:dgCol>
 			<t:dgCol title="公有ip"  field="publicIp" query="true"  queryMode="single" sortable="false" width="80" align="center"></t:dgCol>
 			<t:dgCol title="私有ip"  field="privateIp" query="true"  queryMode="single" sortable="false" width="80" align="center"></t:dgCol>
 			<t:dgCol title="密码"  field="ipWord" hidden="false"  queryMode="single" sortable="false" width="60" align="center"></t:dgCol>
-			<t:dgCol title="密码接收人"  field="receviceMan" hidden="false"  queryMode="single" sortable="false" width="60" align="center"></t:dgCol>
+			<t:dgCol title="密码接收人"  field="receviceMan" query="true" hidden="false"  queryMode="single" sortable="false" width="60" align="center"></t:dgCol>
+			<t:dgCol title="到期时间" field="limitDate"  query="true" formatter="yyyy-MM-dd"  queryMode="group" hidden="false" sortable="false" width="60" align="center"></t:dgCol>
+			<t:dgCol title="开启时间" field="beginDate" formatter="yyyy-MM-dd" hidden="false" sortable="false" width="60" align="center"></t:dgCol>
+			<t:dgCol title="服务器操作系统"  field="optSystem" hidden="false"  queryMode="single" sortable="false" width="60" align="center"></t:dgCol>
 			<t:dgCol title="创建时间" field="createDate" formatter="yyyy-MM-dd hh:mm:ss" hidden="false" sortable="false" width="60" align="center"></t:dgCol>
 			<t:dgCol title="更新时间" field="updateDate" formatter="yyyy-MM-dd hh:mm:ss" hidden="false" sortable="false" width="60" align="center"></t:dgCol>
 			<t:dgToolBar title="录入" icon="icon-add" url="serverWordController.do?addIp" funname="add" operationCode="add"></t:dgToolBar>

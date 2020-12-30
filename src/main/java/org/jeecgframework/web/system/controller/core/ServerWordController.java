@@ -40,6 +40,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -93,17 +94,32 @@ public class ServerWordController extends BaseController {
 	public void datagrid(IpServerConfig ipServerConfig, HttpServletRequest request, HttpServletResponse response, DataGrid dataGrid) {
 		CriteriaQuery cq = new CriteriaQuery(IpServerConfig.class, dataGrid);
 		//查询条件组装器
-		org.jeecgframework.core.extend.hqlsearch.HqlGenerateUtil.installHql(cq, ipServerConfig, request.getParameterMap());
+		//org.jeecgframework.core.extend.hqlsearch.HqlGenerateUtil.installHql(cq, ipServerConfig, request.getParameterMap());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String beginDate = request.getParameter("limitDate_begin");
+		String endDate = request.getParameter("limitDate_end");
+		String publicIp= request.getParameter("publicIp");
+		String privateIp= request.getParameter("privateIp");
 		/*String queryHandleStatus = request.getParameter("queryHandleStatus");
+		*/
 		try{
 			//自定义追加查询条件
-			if(org.apache.commons.lang3.StringUtils.isNotBlank(queryHandleStatus)){
-				cq.eq("reportStatus",queryHandleStatus);
+			if(StringUtils.isNotBlank(publicIp)){
+				cq.eq("publicIp",publicIp);
 			}
-			cq = initSearchCondition(cq);
+			if(StringUtils.isNotBlank(privateIp)){
+				cq.eq("privateIp",privateIp);
+			}
+			if (StringUtils.isNotBlank(beginDate)) {
+				cq.ge("limitDate", sdf.parse(beginDate+ " 00:00:00"));
+			}
+			if (StringUtils.isNotBlank(endDate)) {
+				cq.le("limitDate", sdf.parse(endDate+" 23:59:59"));
+			}
 		}catch (Exception e) {
 			throw new BusinessException(e.getMessage());
-		}*/
+		}
+
 		cq.add();
 		this.serverWordService.getDataGridReturn(cq, true);
 		TagUtil.datagrid(response, dataGrid);

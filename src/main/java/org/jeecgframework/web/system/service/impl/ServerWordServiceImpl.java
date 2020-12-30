@@ -87,6 +87,10 @@ public class ServerWordServiceImpl extends CommonServiceImpl implements ServerWo
 		map.put("private_ip", t.getPrivateIp());
 		map.put("ip_word", t.getIpWord());
 		map.put("recevice_man",t.getReceviceMan());
+		map.put("ip_name",t.getReceviceMan());
+		map.put("limit_date",t.getReceviceMan());
+		map.put("begin_date",t.getReceviceMan());
+		map.put("opt_system",t.getReceviceMan());
         map.put("create_date", t.getCreateDate());
         map.put("update_date", t.getUpdateDate());
 		return map;
@@ -104,6 +108,10 @@ public class ServerWordServiceImpl extends CommonServiceImpl implements ServerWo
         sql  = sql.replace("#{private_ip}", String.valueOf(t.getPrivateIp()));
         sql  = sql.replace("#{ip_word}",String.valueOf( t.getIpWord()));
 		sql  = sql.replace("#{recevice_man}",String.valueOf( t.getReceviceMan()));
+		sql  = sql.replace("#{ip_name}",String.valueOf( t.getReceviceMan()));
+		sql  = sql.replace("#{limit_date}",String.valueOf( t.getReceviceMan()));
+		sql  = sql.replace("#{begin_date}",String.valueOf( t.getReceviceMan()));
+		sql  = sql.replace("#{opt_system}",String.valueOf( t.getReceviceMan()));
         sql  = sql.replace("#{create_date}",String.valueOf(t.getCreateDate()));
         sql  = sql.replace("#{update_date}",String.valueOf(t.getUpdateDate()));
  		sql  = sql.replace("#{UUID}",UUID.randomUUID().toString());

@@ -97,7 +97,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 					break;
 				}
 				//按 do 校验
-				requestStatus = antPathMatcher.match(excludeUrl, uri);
+				requestStatus = antPathMatcher.match(excludeUrl, uri.replace("/minemanage",""));
 				if (requestStatus) {
 					break;
 				}
@@ -299,8 +299,8 @@ public class AuthInterceptor implements HandlerInterceptor {
 	/**
 	 * 转发
 	 * 
-	 * @param user
-	 * @param req
+	 * @param
+	 * @param
 	 * @return
 	 */
 	@RequestMapping(params = "forword")

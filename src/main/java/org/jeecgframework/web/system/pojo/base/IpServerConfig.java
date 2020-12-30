@@ -25,11 +25,19 @@ public  class IpServerConfig implements java.io.Serializable {
 
 	/**主键*/
 	private String id;
-	@Excel(name="公有IP")
+	@Excel(name="公网IP")
 	private String publicIp;// 公网ip
-	@Excel(name="私有IP")
+	@Excel(name="内网IP")
 	private String privateIp;// 私有ip
 	private String ipWord;// 密码
+	@Excel(name="服务器名称")
+	private String ipName;//服务器名称
+	@Excel(name="到期时间")
+	private Date limitDate;//服务器到期时间
+	@Excel(name="开启时间")
+	private Date beginDate;//服务器开启时间
+	@Excel(name="服务器操作系统")
+	private String optSystem;//服务器操作系统
 	private String receviceMan;//密码接收人
 	private Date createDate; //创建时间
 	private Date updateDate;  //更新时间
@@ -80,6 +88,25 @@ public  class IpServerConfig implements java.io.Serializable {
 		this.ipWord = ipWord;
 	}
 
+	@Column(name = "IP_NAME", length = 32)
+	public String getIpName() {return ipName;}
+
+	public void setIpName(String ipName) {this.ipName = ipName;	}
+
+	@Column(name = "LIMIT_DATE", length = 32)
+	public Date getLimitDate() {return limitDate; }
+
+	public void setLimitDate(Date limitDate) {this.limitDate = limitDate; }
+
+	@Column(name = "BEGIN_DATE", length = 32)
+	public Date getBeginDate() {return beginDate; }
+
+	public void setBeginDate(Date beginDate) {this.beginDate = beginDate; }
+
+	@Column(name = "OPT_SYSTEM", length = 32)
+	public String getOptSystem() {return optSystem; }
+
+	public void setOptSystem(String optSystem) {this.optSystem = optSystem; }
 
 	@Column(name = "RECEVICE_MAN", length = 32)
 	public String getReceviceMan() {
