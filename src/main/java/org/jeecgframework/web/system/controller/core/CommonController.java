@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.jeecgframework.core.common.controller.BaseController;
+import org.jeecgframework.core.common.exception.BusinessException;
 import org.jeecgframework.core.common.hibernate.qbc.CriteriaQuery;
 import org.jeecgframework.core.common.model.common.UploadFile;
 import org.jeecgframework.core.common.model.json.AjaxJson;
@@ -38,9 +39,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 通用业务处理
- * 
+ *
  * @author 张代浩
- * 
+ *
  */
 //@Scope("prototype")
 @Controller
@@ -68,7 +69,7 @@ public class CommonController extends BaseController {
 
 	/**
 	 * 附件预览页面打开链接
-	 * 
+	 *
 	 * @return
 	 */
 	@RequestMapping(params = "openViewFile")
@@ -101,12 +102,15 @@ public class CommonController extends BaseController {
 
 	/**
 	 * 附件预览读取
-	 * 
+	 *
 	 * @return
 	 */
 	@RequestMapping(params = "viewFile")
 	public void viewFile(HttpServletRequest request, HttpServletResponse response) {
 		String fileid =oConvertUtils.getString(request.getParameter("fileid"));
+		if(StringUtil.isEmpty(fileid)){
+			throw new BusinessException("没有找到相关文件");
+		}
 		//String subclassname = oConvertUtils.getString(request.getParameter("subclassname"), "com.jeecg.base.pojo.TSAttachment");
         String subclassname = oConvertUtils.getString(request.getParameter("subclassname"), "org.jeecgframework.web.system.pojo.base.TSAttachment");
 		Class fileClass = MyClassLoader.getClassByScn(subclassname);// 附件的实际类
@@ -133,7 +137,7 @@ public class CommonController extends BaseController {
 
 	/**
 	 * 生成XML文件
-	 * 
+	 *
 	 * @return
 	 */
 	@RequestMapping(params = "createxml")
@@ -150,7 +154,7 @@ public class CommonController extends BaseController {
 
 	/**
 	 * 生成XML文件parserXml
-	 * 
+	 *
 	 * @return
 	 */
 	@RequestMapping(params = "parserXml")
@@ -184,7 +188,7 @@ public class CommonController extends BaseController {
 
 	/**
 	 * 自动完成请求返回数据
-	 * 
+	 *
 	 * @param request
 	 * @param responss
 	 */
@@ -205,7 +209,7 @@ public class CommonController extends BaseController {
 			}
 			allFieldArr[fieldArr.length] = valueField;
 		}
-		
+
 		try {
 			String str = TagUtil.getAutoList(autocomplete, autoList);
 			str = "(" + str + ")";
@@ -228,7 +232,7 @@ public class CommonController extends BaseController {
 
 	/**
 	 * 删除继承于TSAttachment附件的公共方法
-	 * 	
+	 *
 	 * @param ids
 	 * @return
 	 */
@@ -244,14 +248,14 @@ public class CommonController extends BaseController {
 		message = "" + attachment.getAttachmenttitle() + "删除成功";
 		systemService.delete(objfile);
 		systemService.addLog(message, Globals.Log_Type_DEL, Globals.Log_Leavel_INFO);
-		
+
 		j.setMsg(message);
 		return j;
 	}
 
 	/**
 	 * 继承于TSAttachment附件公共列表跳转
-	 * 
+	 *
 	 * @return
 	 */
 	@RequestMapping(params = "objfileList")

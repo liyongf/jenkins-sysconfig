@@ -15,12 +15,12 @@ import java.util.List;
 import org.hibernate.annotations.GenericGenerator;
 import org.jeecgframework.poi.excel.annotation.Excel;
 
-/**   
+/**
  * @Title: Entity
  * @Description: 矿井组织机构
  * @author onlineGenerator
  * @date 2018-05-18 11:03:03
- * @version V1.0   
+ * @version V1.0
  *
  */
 @Entity
@@ -94,6 +94,10 @@ public class TBMineOrgEntity implements java.io.Serializable {
 	/**当前app版本*/
 	@Excel(name="当前apk版本",width=15)
 	private java.lang.String appVersion;
+
+	/**当前app版本*/
+	@Excel(name="当前uniapp版本",width=15)
+	private java.lang.String uniAppVersion;
 	/**
 	 *方法: 取得java.lang.String
 	 *@return: java.lang.String  ID
@@ -502,4 +506,12 @@ public class TBMineOrgEntity implements java.io.Serializable {
 		this.appVersion = appVersion;
 	}
 
+	@Column(name ="uniapp_version",nullable=true,length=500)
+	public String getUniAppVersion() {
+		return uniAppVersion;
+	}
+
+	public void setUniAppVersion(String uniAppVersion) {
+		this.uniAppVersion = uniAppVersion;
+	}
 }

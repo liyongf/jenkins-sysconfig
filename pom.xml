@@ -201,6 +201,16 @@
             <version>${quartz.version}</version>
         </dependency>
         <!-- 定时器结束 -->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>3.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>3.3.0</version>
+		</dependency>
 		<!-- activation -->
 		<dependency>
 			<groupId>javax.activation</groupId>
@@ -406,7 +416,7 @@
             <artifactId>ojdbc14</artifactId>
             <version>${ojdbc14.version}</version>
         </dependency>
-        <!-- jtds for mssql/db2 
+        <!-- jtds for mssql/db2
 		<dependency>
 			<groupId>net.sourceforge.jtds</groupId>
 			<artifactId>jtds</artifactId>
@@ -414,7 +424,7 @@
 			<scope>runtime</scope>
 		</dependency>
 		-->
-        <!-- h2 
+        <!-- h2
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -838,7 +848,7 @@
 		    <artifactId>groovy</artifactId>
 		    <version>${groovy.version}</version>
 		</dependency>
-		
+
 		<dependency>
 		  <groupId>commons-httpclient</groupId>
 		  <artifactId>commons-httpclient</artifactId>
@@ -861,7 +871,7 @@
 		  <version>1.0</version>
 		</dependency>
 		<!-- baidu ueditor-->
-		
+
 		<!-- jsoup HTML parser library @ http://jsoup.org/ -->
 		<dependency>
 		  <groupId>org.jsoup</groupId>
@@ -874,7 +884,7 @@
 			<artifactId>guava</artifactId>
 			<version>${guava.version}</version>
 		</dependency>
-		
+
 		<!-- jeecg plugin  -->
 		<dependency>
 			<groupId>org.p3framework</groupId>
@@ -901,7 +911,7 @@
 			<version>1.0.2</version>
 		</dependency>
 		-->
-		
+
 		<!-- 插件: 我的邮箱 -->
 		<!--
 		<dependency>
@@ -911,7 +921,7 @@
 			<type>jar</type>
 		</dependency>
 		-->
-		
+
 		 <!-- 在线聊天工具-->
 		<!--
 		<dependency>
@@ -953,14 +963,14 @@
 	                </configuration>
 	            </plugin>
 	            -->
-	        <plugin>  
-                <artifactId>maven-compiler-plugin</artifactId>  
-                <version>2.3.2</version>  
-                <configuration>  
-                    <source>1.7</source>  
-                    <target>1.7</target>  
+	        <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
                     <encoding>UTF-8</encoding>
-                </configuration>  
+                </configuration>
             </plugin>
 	    </plugins>
 		<finalName>mineManage</finalName>
@@ -998,5 +1008,5 @@
 			</testResource>
 		</testResources>
 	</build>
-	
+
 </project>
