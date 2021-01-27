@@ -65,10 +65,19 @@
         $('#settingApkPanel').panel("refresh", "tBMineUniappApkController.do?uniList&mineId=" +mineId);
     }
     function setQrCode(mineId){
-        if(li_east == 0){
+        //iframe层-父子操作
+
+        layer.open({
+            type: 2,
+            area: ['650px', '670px'],
+            fixed: false, //不固定
+            maxmin: true,
+            content: 'tBMineUniappApkController.do?QrCodeGenerete&mineId='+mineId
+        });
+/*        if(li_east == 0){
             $('#system_function_functionList').layout('expand','east');
         }
-        $('#settingApkPanel').panel("refresh", "tBMineUniappApkController.do?QrCodeGenerete&mineId=" +mineId);
+        $('#settingApkPanel').panel("refresh", "tBMineUniappApkController.do?QrCodeGenerete&mineId=" +mineId);*/
     }
 
 </script>

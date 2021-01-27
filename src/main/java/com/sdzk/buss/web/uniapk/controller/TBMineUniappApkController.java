@@ -2,8 +2,7 @@ package com.sdzk.buss.web.uniapk.controller;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,9 +14,11 @@ import com.sdzk.buss.web.mineorg.entity.TBMineOrgEntity;
 import com.sdzk.buss.web.uniapk.entity.TBMineUniappApkEntity;
 import com.sdzk.buss.web.uniapk.service.TBMineUniappApkServiceI;
 import com.sdzk.buss.web.uniapk.util.QRCodeGenerator;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.jeecgframework.core.common.model.common.UploadFile;
 import org.jeecgframework.core.util.*;
+import org.jeecgframework.web.system.pojo.base.TSAttachment;
 import org.jeecgframework.web.system.pojo.base.TSDocument;
 import org.jeecgframework.web.system.pojo.base.TSType;
 import org.jeecgframework.web.system.pojo.base.TSTypegroup;
@@ -45,8 +46,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.jeecgframework.core.beanvalidator.BeanValidators;
 
-import java.util.Map;
-import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.net.URI;
@@ -445,4 +444,80 @@ public class TBMineUniappApkController extends BaseController {
 	public void delete(@PathVariable("id") String id) {
 		tBMineUniappApkService.deleteEntityById(TBMineUniappApkEntity.class, id);
 	}
+
+	@RequestMapping(params = "goUpdate")
+	public ModelAndView goUpdate(TBMineUniappApkEntity tBUniApk, HttpServletRequest req) {
+		String load = req.getParameter("load");
+		req.setAttribute("load",load);
+		if (StringUtil.isNotEmpty(tBUniApk.getId())) {
+			tBUniApk = tBMineUniappApkService.getEntity(TBMineUniappApkEntity.class, tBUniApk.getId());
+			req.setAttribute("tBMineApkPage", tBUniApk);
+
+			List<String> list = this.systemService.findListbySql("select tsa.id FROM t_s_document as document , t_s_attachment as tsa where document.id = tsa.id and document.`status` = '1' and businesskey = '"+tBUniApk.getId()+"'");
+			List<TSAttachment> tsaList = new ArrayList<TSAttachment>();
+			StringBuffer attachmentIds = new StringBuffer();
+			if(list != null && list.size() >0){
+				for(String idTemp : list){
+					//判断文件是否可用
+					TSAttachment tsAttachment = this.systemService.getEntity(TSAttachment.class,idTemp);
+					tsaList.add(tsAttachment);
+					if(StringUtils.isNotBlank(attachmentIds.toString())){
+						attachmentIds.append(",");
+					}
+					attachmentIds.append(tBUniApk.getId());
+				}
+			}
+			req.setAttribute("attachmentIds",attachmentIds);
+			req.setAttribute("list",tsaList);
+		}
+		return new ModelAndView("com/sdzk/buss/web/uniapk/tBUniApk-update");
+	}
+
+	/**
+	 * 更新矿井APK配置
+	 *
+	 * @return
+	 */
+	@RequestMapping("doUpdate")
+	@ResponseBody
+	public AjaxJson doUpdate(TBMineUniappApkEntity tBUniApk, HttpServletRequest request) {
+		String message = null;
+		AjaxJson j = new AjaxJson();
+		message = "更新成功";
+		TBMineUniappApkEntity t = tBMineUniappApkService.get(TBMineUniappApkEntity.class, tBUniApk.getId());
+		try {
+			if(Constants.YES.equals(tBUniApk.getIsCurrentVersion())){
+				if(StringUtil.isNotEmpty(tBUniApk.getMineId())) {
+					systemService.executeSql("update t_b_mine_uniapp_apk set is_current_version='0' where mine_id='" + tBUniApk.getMineId() + "'");
+					systemService.executeSql("update t_b_mine_org set uniapp_version='"+tBUniApk.getVersionName()+"' where id='" + tBUniApk.getMineId() + "'");
+				} else {
+					systemService.executeSql("update t_b_mine_uniapp_apk set is_current_version='0' where mine_id is null");
+				}
+			}
+
+			String delAttachmentId = request.getParameter("delAttachmentId");
+			if(StringUtils.isNotBlank(delAttachmentId)){
+				String ids [] = delAttachmentId.split(",");
+				if(ids != null && ids.length >0){
+					for(String idTemp : ids){
+						this.systemService.updateBySqlString(" update t_s_document set  status = 0 where id = '"+idTemp+"' ");
+						systemService.addLog("文件\""+idTemp+"\"状态更新成功",Globals.Log_Leavel_INFO,Globals.Log_Type_UPDATE);
+					}
+				}
+			}
+			MyBeanUtils.copyBeanNotNull2Bean(tBUniApk, t);
+			tBMineUniappApkService.saveOrUpdate(t);
+			systemService.addLog(message, Globals.Log_Type_UPDATE, Globals.Log_Leavel_INFO);
+		} catch (Exception e) {
+			e.printStackTrace();
+			message = "更新失败";
+			throw new BusinessException(e.getMessage());
+		}
+		j.setMsg(message);
+		return j;
+	}
+
+
+
+
 }

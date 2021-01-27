@@ -27,7 +27,6 @@
             background :"#ffffff",//背景颜色
             foreground :"#000000" //前景颜色
         });
-        console.log("${testp}")
     })
 </script>
 </body>
