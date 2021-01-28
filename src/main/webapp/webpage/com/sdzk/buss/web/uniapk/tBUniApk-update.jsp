@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>矿井APK配置</title>
+    <title>版本配置</title>
     <t:base type="jquery,easyui,tools,DatePicker"></t:base>
     <script type="text/javascript">
         //编写自定义JS代码
@@ -27,10 +27,14 @@
             $("#delAttachmentId").val(delAttachmentId);
             $("#"+attachmentId).remove();
         }
+        function setRequest() {
+            alert(1)
+            window.document.forms[0].enctype = "application/json;charset=UTF-8";
+        }
     </script>
 </head>
 <body>
-<t:formvalid tiptype="" formid="formobj" dialog="true" usePlugin="password" layout="table" callback="@Override uploadFile" action="tBMineUniappApkController.do;jsessionid=${pageContext.session.id}?doUpdate" >
+<t:formvalid beforeSubmit="setRequest" formid="formobj" dialog="true" usePlugin="password" layout="table" callback="@Override uploadFile" action="tBMineUniappApkController.do;jsessionid=${pageContext.session.id}?doUpdate" >
     <input id="id" name="id" type="hidden" value="${tBMineApkPage.id }"/>
     <input id="mineId" name="mineId" type="hidden" value="${tBMineApkPage.mineId }"/>
     <input id="delAttachmentId" name="delAttachmentId" type="hidden" value="">
@@ -102,7 +106,7 @@
                 </td>
                 <td class="value" colspan="3">
                     <input type="hidden" id="bussId" name="bussId"  value="${tBMineApkPage.id }"/>
-                    <t:upload name="fiels" buttonText="上传APK" uploader="tBMineUniappApkController.do;jsessionid=${pageContext.session.id}?uploadMyApk&typecode=${typecode}" multi="false" extend="*.apk" id="file_upload" formData="bussId,delAttachmentId,jsessionid"></t:upload>
+                    <t:upload    fileSizeLimit="5120000" name="fiels"  view="true" auto="false" uploader="tBMineUniappApkController.do?uploadMyApk" extend="*.apk" id="file_upload" formData="bussId,jsessionid"></t:upload>
                     <div id="filediv" style="height: 50px">
 
                     </div>

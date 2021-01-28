@@ -11,9 +11,9 @@
    <c:if test="${empty mineId}">
     <t:dgCol title="矿井名称"  field="mineName"  hidden="false" query="false" width="120"></t:dgCol>
    </c:if>
-   <t:dgCol title="是否强制安装"  field="isForce"  queryMode="group" dictionary="yesOrNo"  width="120"></t:dgCol>
-   <t:dgCol title="是否下载完成后自动安装"  field="isAutoInstall" dictionary="yesOrNo"  queryMode="group"  width="120"></t:dgCol>
-   <t:dgCol title="是否可忽略该版本"  field="isIgnorable" dictionary="yesOrNo"  queryMode="group"  width="120"></t:dgCol>
+   <%--<t:dgCol title="是否强制安装"  field="isForce"  queryMode="group" dictionary="yesOrNo"  width="120"></t:dgCol>--%>
+   <%--<t:dgCol title="是否下载完成后自动安装"  field="isAutoInstall" dictionary="yesOrNo"  queryMode="group"  width="120"></t:dgCol>--%>
+   <%--<t:dgCol title="是否可忽略该版本"  field="isIgnorable" dictionary="yesOrNo"  queryMode="group"  width="120"></t:dgCol>--%>
    <t:dgCol title="版本号编码"  field="versionCode"  queryMode="group"  width="120"></t:dgCol>
    <t:dgCol title="版本号名称"  field="versionName"  query="true"  width="120"></t:dgCol>
    <t:dgCol title="本版更新内容"  field="updateContent"  query="true"  width="120"></t:dgCol>
@@ -31,7 +31,7 @@
    <%--<t:dgCol title="操作" field="opt" width="100"></t:dgCol>--%>
    <%--<t:dgDefOpt title="下载" url="commonController.do?viewFile&fileid={documentId}&subclassname={subclassname}" urlclass="ace_button"  urlfont="fa-trash-o"/>--%>
    <t:dgToolBar title="上传版本" icon="icon-add" url="tBMineUniappApkController.do?goAdd&mineId=${mineId}" funname="add" height="500" width="800"></t:dgToolBar>
-   <t:dgToolBar title="编辑" icon="icon-edit" url="tBMineUniappApkController.do?goUpdate" funname="update" height="500" width="800"></t:dgToolBar>
+   <%--<t:dgToolBar title="编辑" icon="icon-edit" url="tBMineUniappApkController.do?goUpdate" funname="update" height="500" width="800"></t:dgToolBar>--%>
    <t:dgToolBar title="批量删除"  icon="icon-remove" url="tBMineUniappApkController.do?doBatchDel" funname="deleteALLSelect"></t:dgToolBar>
    <t:dgToolBar title="查看" icon="icon-search" url="tBMineUniappApkController.do?goUpdate" funname="detail"  height="500" width="800"></t:dgToolBar>
    <%--<t:dgToolBar title="导入" icon="icon-put" funname="ImportXls"></t:dgToolBar>--%>
