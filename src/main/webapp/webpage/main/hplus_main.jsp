@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
 
-    <title><t:mutiLang langKey="双防矿版系统"/></title>
+    <title><t:mutiLang langKey="中矿安华矿井信息管理平台"/></title>
 
     <meta name="keywords" content="响应式后台">
     <meta name="description" content="基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">

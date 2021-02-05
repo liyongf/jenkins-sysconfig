@@ -19,7 +19,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>矿版双防机制管理信息系统</title>
+    <title>中矿安华矿井信息管理平台</title>
     <link rel="shortcut icon" href="images/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -48,8 +48,6 @@
         <button type="button" id="but_login" name="subButton" onclick="checkUser()">登录</button>
     </form>
 </div>
-<div class="foot">技术支持：中国矿业大学 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 曹老师：186 5226 8836 &nbsp; 刘老师：187 9625 5075</div>
-
 
 <script type="text/javascript" src="plug-in/jquery/jquery.cookie.js"></script>
 <script type="text/javascript" src="plug-in/mutiLang/en.js"></script>
