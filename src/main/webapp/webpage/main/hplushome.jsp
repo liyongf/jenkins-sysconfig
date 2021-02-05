@@ -65,22 +65,22 @@
         <div class="model_menu">
             <p>
                 <a href="javascript:void(0)" onclick="window.parent.moduleClick('aqfxfjgkLi')" class = "m1">
-                    安全风险分级管控
+                    部署管理
                     <img src="plug-in/hplus/images/model1.png"/>
                 </a>
 
                 <a href="javascript:void(0)" onclick="window.parent.moduleClick('yhpczlLi')" class = "m2">
-                    隐患排查治理
+                    app管理
                     <img src="plug-in/hplus/images/model2.png"/>
                 </a>
                 <a href="javascript:void(0)" onclick="window.parent.moduleClick('aqbzhkhLi')" class = "m3">
-                    安全标准化考核
+                    短信管理
                     <img src="plug-in/hplus/images/model3.png"/>
                 </a>
             </p>
             <p>
                 <a href="javascript:void(0)" onclick="window.parent.moduleClick('aqjcfxLi')" class = "m4">
-                    安全决策分析
+                    手机管理
                     <img src="plug-in/hplus/images/model4.png"/>
                 </a>
                 <a href="javascript:void(0)" onclick="window.parent.moduleClick('fzglLi')" class = "m5">
