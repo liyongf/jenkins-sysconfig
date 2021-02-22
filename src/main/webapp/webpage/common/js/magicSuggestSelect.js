@@ -8,6 +8,7 @@ var addressUrl="magicSelectController.do?getAddressList";
 var postUrl="magicSelectController.do?getPostList";
 var activityUrl = "magicSelectController.do?getActivityList";
 var hazardUrl = "magicSelectController.do?getHazardList";
+var belongmineinfoUrl="magicSelectController.do?getBelongmineinfo";
 /**
  * 获取第一类危险源信息
  */
@@ -67,6 +68,16 @@ function  getAddressMagicSuggestWithValue(magicSeleter, inputSelecter, value, ma
 }
 function  getAddressMagicSuggest(magicSeleter, inputSelecter){
     return getAddressMagicSuggestWithValue(magicSeleter, inputSelecter, null, false);
+}
+
+/**
+ * 获取k矿井信息
+ */
+function  getBelongmineinfo(magicSeleter, inputSelecter){
+    return getBelongmineinfoValue(magicSeleter, inputSelecter, null, false);
+}
+function  getBelongmineinfoValue(magicSeleter, inputSelecter, value, magicDisable){
+    return getMagicSuggest(magicSeleter, inputSelecter, belongmineinfoUrl, value, magicDisable,1,"belongmineinfo","belongmineinfo",false);
 }
 /**
  * 设置下拉框

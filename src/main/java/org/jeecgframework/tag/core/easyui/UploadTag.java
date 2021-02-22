@@ -42,7 +42,7 @@ public class UploadTag extends TagSupport {
 		this.formId = formId;
 	}
 
-	private String fileSizeLimit = "50MB";//上传文件大小设置
+	private String fileSizeLimit = "100MB";//上传文件大小设置
 	public String getFileSizeLimit() {
 		return fileSizeLimit;
 	}
