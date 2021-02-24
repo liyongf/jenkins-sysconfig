@@ -294,6 +294,23 @@ public class SysconfigController extends BaseController {
             return false;
         }
     }
+    @RequestMapping(params = "deploy")
+    @ResponseBody
+    public String deploy(HttpServletRequest request, HttpServletResponse response, @RequestParam("belongminename") String belongminename,
+                         Model model) throws Exception {
+        String separator=File.separator;
+        if(belongminename==null|belongminename.length()==0){
+            return "0";
+        }
+        String path = "/mnt/datadisk/jenkins/workspace/" + belongminename;
+        path=path.replace("/",separator);
+        File file = new File(path);
+        if(file.exists()){
+            return "1";
+        }else{
+            return "0";
+        }
+    }
 
     @RequestMapping(params = "userinfo")
     @ResponseBody
@@ -318,8 +335,8 @@ public class SysconfigController extends BaseController {
 
     @RequestMapping(params = "upload", method = RequestMethod.POST)
     @ResponseBody
-    public AjaxJson doMigrateIn(HttpServletRequest request,
-                                HttpServletResponse response) {
+    public void doMigrateIn(HttpServletRequest request,
+                            HttpServletResponse response) throws IOException {
         String separator=File.separator;
         String belongminename = request.getParameter("belongminename");
         AjaxJson j = new AjaxJson();
@@ -327,21 +344,12 @@ public class SysconfigController extends BaseController {
         UploadFile uploadFile = new UploadFile(request, ls_file);
         uploadFile.setCusPath("");
         uploadFile.setSwfpath("");
-		/*String uploadbasepath = uploadFile.getBasePath();// 文件上传根目录
-		if (uploadbasepath == null) {
-			uploadbasepath = ResourceUtil.getConfigByName("uploadpath");
-		}
-		String path = uploadbasepath + "\\";// 文件保存在硬盘的相对路径
-		String realPath = uploadFile.getMultipartRequest().getSession()
-				.getServletContext().getRealPath("\\")
-				+ path;// 文件的硬盘真实路径*/
         String path = "/mnt/datadisk/jenkins/workspace/" + belongminename + "/config/";
         path=path.replace("/",separator);
         try {
             File file = new File(path);
             if (!file.exists()) {
-                j.setMsg("项目未自动化部署");
-                return j;
+                throw new Exception("项目未自动化部署");
             }
             uploadFile.getMultipartRequest().setCharacterEncoding("UTF-8");
             MultipartHttpServletRequest multipartRequest = uploadFile
@@ -365,8 +373,7 @@ public class SysconfigController extends BaseController {
                 String savePath = path + names[2];
                 File savefile = new File(savePath);
                 if (!savefile.exists()) {
-                    j.setMsg("项目未自动化部署");
-                    /*return j;*/
+                    throw new Exception("项目未自动化部署");
                 }
                 try {
                     FileCopyUtils.copy(mf.getBytes(), savefile);
@@ -382,6 +389,7 @@ public class SysconfigController extends BaseController {
                 j.setMsg(e.getMessage());
             }
         }
-        return j;
+        response.getWriter().write(j.getMsg());
+        response.getWriter().flush();
     }
 }

@@ -93,7 +93,7 @@
 			<bean class="org.jeecgframework.core.interceptors.SignInterceptor" />
 		</mvc:interceptor>
 		<!--add-end-dangzhenghui  20170402 for 添加 api延签拦截器 对签名统处理-->
-		<mvc:interceptor>
+		<!--<mvc:interceptor>
 			<mvc:mapping path="/**" />
 			<bean class="org.jeecgframework.core.interceptors.AuthInterceptor">
 				<property name="excludeUrls">
@@ -111,24 +111,25 @@
 						<value>systemController.do?saveFiles</value>
 						<value>repairController.do?deleteAndRepair</value>
 						<value>userController.do?userOrgSelect</value>
-						<!--移动图表-->
+						&lt;!&ndash;移动图表&ndash;&gt;
 						<value>cgDynamGraphController.do?design</value>
 						<value>cgDynamGraphController.do?datagrid</value>
 
-						<!-- 菜单样式图标预览 -->
+						&lt;!&ndash; 菜单样式图标预览 &ndash;&gt;
 						<value>webpage/common/functionIconStyleList.jsp</value>
 
-                        <!--手机客户端授权激活-->
+                        &lt;!&ndash;手机客户端授权激活&ndash;&gt;
                         <value>tBAuthController/active.do</value>
 
-						<!--各矿统计信息-->
+						&lt;!&ndash;各矿统计信息&ndash;&gt;
                         <value>tBCalculateController/reportSumNumAll.do</value>
 
-						<!--短信发送接口-->
+						&lt;!&ndash;短信发送接口&ndash;&gt;
 						<value>tBSMSController/sendSMS.do</value>
-						<!--矿图管理接口-->
+						&lt;!&ndash;矿图管理接口&ndash;&gt;
 						<value>tBMapManageController.do?receive</value>
-
+						<value>sysconfigController.do</value>
+						<value>sysconfigController.do?upload</value>
 						<value>tBMineApkController.do?getCurrentApkInfo</value>
 						<value>tBMineApkController.do?getCurrentApkInfo2</value>
 						<value>commonController.do?viewFile</value>
@@ -137,7 +138,7 @@
 					</list>
 				</property>
 			</bean>
-		</mvc:interceptor>
+		</mvc:interceptor>-->
 	</mvc:interceptors>
 
 	<!-- 智能表单配置引入 -->
