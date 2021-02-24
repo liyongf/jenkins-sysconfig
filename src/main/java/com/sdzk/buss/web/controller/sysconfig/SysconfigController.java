@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
@@ -133,8 +134,10 @@ public class SysconfigController extends BaseController {
         String message = null;
         AjaxJson j = new AjaxJson();
         sysconfig = systemService.getEntity(SysconfigEntity.class, sysconfig.getId());
-        message = "矿井 配置信息删除成功";
-        sysconfigService.delete(sysconfig);
+        message = "矿井 配置信息废弃成功";
+        //sysconfigService.delete(sysconfig);
+        sysconfig.setUpdatedt(new Date());
+        sysconfigService.saveOrUpdate(sysconfig);
         systemService.addLog(message, Globals.Log_Type_DEL, Globals.Log_Leavel_INFO);
 
         j.setMsg(message);
