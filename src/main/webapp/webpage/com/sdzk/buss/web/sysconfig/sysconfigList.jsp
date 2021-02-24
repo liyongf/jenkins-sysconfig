@@ -62,21 +62,21 @@
         var name=row.belongminename;
         var isdeploy=row.isdeploy;
         if(isdeploy=="1"){
-            return '<a href=sysconfigController.do?download&filename='+name+'_dbconfig>'+name+'_dbconfig</a>';
+            return '<a href=http://47.92.93.226:8180/mineManage/sysconfigController.do?download&filename='+name+'_dbconfig>'+name+'_dbconfig</a>';
         }
     }
     function down2(value,row,index){
         var name=row.belongminename;
         var isdeploy=row.isdeploy;
         if(isdeploy=="1") {
-            return '<a href=sysconfigController.do?download&filename=' + name + '_ehcache>' + name + '_ehcache</a>';
+            return '<a href=http://47.92.93.226:8180/mineManage/sysconfigController.do?download&filename=' + name + '_ehcache>' + name + '_ehcache</a>';
         }
     }
     function down3(value,row,index){
         var name=row.belongminename;
         var isdeploy=row.isdeploy;
         if(isdeploy=="1") {
-            return '<a href=sysconfigController.do?download&filename=' + name + '_sysConfig>' + name + '_sysConfig</a>';
+            return '<a href=http://47.92.93.226:8180/mineManage/sysconfigController.do?download&filename=' + name + '_sysConfig>' + name + '_sysConfig</a>';
         }
     }
     function uploads(title,url,id) {
