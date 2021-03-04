@@ -29,13 +29,13 @@
             <t:dgCol title="矿井ip" field="ip"  width="100" query="true" align="center"></t:dgCol>
             <t:dgCol title="矿井port" field="port"   width="60" align="center"></t:dgCol>
             <t:dgCol title="是否部署" field="isdeploy"  hidden="true" width="60" align="center"></t:dgCol>
-            <t:dgCol title="修改时间" field="updatedt" hidden="true" formatter="yyyy-MM-dd hh:mm:ss"  width="120" align="center"></t:dgCol>
             <t:dgCol title="修改用户" field="updateusers"  hidden="true"  width="120" align="center"></t:dgCol>
             <t:dgCol title="dbconfig下载" field="down1" width="150" formatterjs="down1" align="center"></t:dgCol>
             <t:dgCol title="ehcache下载" field="down2" width="150" formatterjs="down2" align="center"></t:dgCol>
             <t:dgCol title="sysConfig下载" field="down3" width="160" formatterjs="down3" align="center"></t:dgCol>
+            <t:dgCol title="废弃时间" field="updatedt"  formatter="yyyy-MM-dd"  width="120" align="center"></t:dgCol>
             <t:dgCol title="操作" field="opt" width="100"  align="center"></t:dgCol>
-            <t:dgDelOpt title="删除" url="sysconfigController.do?del&id={id}" urlclass="ace_button"  urlfont="fa-trash-o"/>
+            <t:dgDelOpt title="废弃" url="sysconfigController.do?del&id={id}" urlclass="ace_button"  urlfont="fa-trash-o"/>
             <t:dgToolBar title="录入" icon="icon-add" url="sysconfigController.do?addorupdate" funname="add"></t:dgToolBar>
             <t:dgToolBar title="编辑" icon="icon-edit" url="sysconfigController.do?addorupdate" funname="update"></t:dgToolBar>
             <t:dgToolBar title="查看" icon="icon-search" url="sysconfigController.do?addorupdate" funname="detail"></t:dgToolBar>
@@ -62,21 +62,21 @@
         var name=row.belongminename;
         var isdeploy=row.isdeploy;
         if(isdeploy=="1"){
-            return '<a href=sysconfigController.do?download&filename='+name+'_dbconfig>'+name+'_dbconfig</a>';
+            return '<a href=http://47.92.93.226:8180/mineManage/sysconfigController.do?download&filename='+name+'_dbconfig>'+name+'_dbconfig</a>';
         }
     }
     function down2(value,row,index){
         var name=row.belongminename;
         var isdeploy=row.isdeploy;
         if(isdeploy=="1") {
-            return '<a href=sysconfigController.do?download&filename=' + name + '_ehcache>' + name + '_ehcache</a>';
+            return '<a href=http://47.92.93.226:8180/mineManage/sysconfigController.do?download&filename=' + name + '_ehcache>' + name + '_ehcache</a>';
         }
     }
     function down3(value,row,index){
         var name=row.belongminename;
         var isdeploy=row.isdeploy;
         if(isdeploy=="1") {
-            return '<a href=sysconfigController.do?download&filename=' + name + '_sysConfig>' + name + '_sysConfig</a>';
+            return '<a href=http://47.92.93.226:8180/mineManage/sysconfigController.do?download&filename=' + name + '_sysConfig>' + name + '_sysConfig</a>';
         }
     }
     function uploads(title,url,id) {

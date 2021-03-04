@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
@@ -10,8 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.sdzk.buss.web.auth.entity.TBAuthEntity;
+
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.jeecgframework.core.common.model.common.UploadFile;
+import org.jeecgframework.core.util.HttpClientUtils;
 import org.jeecgframework.core.util.ResourceUtil;
 import org.jeecgframework.web.system.pojo.base.TSUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +61,7 @@ import javax.validation.Validator;
 import java.net.URI;
 import org.springframework.http.MediaType;
 import org.springframework.web.util.UriComponentsBuilder;
+
 
 /**
  * @Title: Controller
@@ -124,8 +134,10 @@ public class SysconfigController extends BaseController {
         String message = null;
         AjaxJson j = new AjaxJson();
         sysconfig = systemService.getEntity(SysconfigEntity.class, sysconfig.getId());
-        message = "矿井 配置信息删除成功";
-        sysconfigService.delete(sysconfig);
+        message = "矿井 配置信息废弃成功";
+        //sysconfigService.delete(sysconfig);
+        sysconfig.setUpdatedt(new Date());
+        sysconfigService.saveOrUpdate(sysconfig);
         systemService.addLog(message, Globals.Log_Type_DEL, Globals.Log_Leavel_INFO);
 
         j.setMsg(message);
@@ -158,7 +170,11 @@ public class SysconfigController extends BaseController {
         } else {
             message = "矿井 配置信息添加成功";
             String belongminename=sysconfig.getBelongminename();
-            if(isdeploy(belongminename)){
+
+            String url="http://47.92.93.226:8180/mineManage/sysconfigController.do?deploy"+"&belongminename="+belongminename;
+            String result="0";
+            result=post(url);
+            if("1".equals(result)){
                 sysconfig.setIsdeploy(1);
             }else {
                 sysconfig.setIsdeploy(0);
@@ -320,29 +336,13 @@ public class SysconfigController extends BaseController {
     @ResponseBody
     public AjaxJson doMigrateIn(HttpServletRequest request,
                                 HttpServletResponse response) {
-        String separator=File.separator;
         String belongminename = request.getParameter("belongminename");
         AjaxJson j = new AjaxJson();
         String ls_file = "";
         UploadFile uploadFile = new UploadFile(request, ls_file);
         uploadFile.setCusPath("");
         uploadFile.setSwfpath("");
-		/*String uploadbasepath = uploadFile.getBasePath();// 文件上传根目录
-		if (uploadbasepath == null) {
-			uploadbasepath = ResourceUtil.getConfigByName("uploadpath");
-		}
-		String path = uploadbasepath + "\\";// 文件保存在硬盘的相对路径
-		String realPath = uploadFile.getMultipartRequest().getSession()
-				.getServletContext().getRealPath("\\")
-				+ path;// 文件的硬盘真实路径*/
-        String path = "/mnt/datadisk/jenkins/workspace/" + belongminename + "/config/";
-        path=path.replace("/",separator);
         try {
-            File file = new File(path);
-            if (!file.exists()) {
-                j.setMsg("项目未自动化部署");
-                return j;
-            }
             uploadFile.getMultipartRequest().setCharacterEncoding("UTF-8");
             MultipartHttpServletRequest multipartRequest = uploadFile
                     .getMultipartRequest();
@@ -362,17 +362,12 @@ public class SysconfigController extends BaseController {
                 if(!(names[2].equals("dbconfig.properties")||names[2].equals("ehcache.xml")||names[2].equals("sysConfig.properties"))){
                     throw new Exception("上传文件名错误");
                 }
-                String savePath = path + names[2];
-                File savefile = new File(savePath);
-                if (!savefile.exists()) {
-                    j.setMsg("项目未自动化部署");
-                    /*return j;*/
-                }
                 try {
-                    FileCopyUtils.copy(mf.getBytes(), savefile);
-                    j.setMsg("文件导入成功");
-                } catch (IOException e) {
-                    j.setMsg("文件复制异常");
+                    String wxUrlStr="http://47.92.93.226:8180/mineManage/sysconfigController.do?upload&belongminename="+belongminename;
+                    String formName=fileName;
+                    j.setMsg(JavaDirectUpload.uploadFile(wxUrlStr,formName,mf));
+                } catch (Exception e) {
+                    j.setMsg("文件远程复制异常");
                 }
             }
         }catch(Exception e){
@@ -383,5 +378,26 @@ public class SysconfigController extends BaseController {
             }
         }
         return j;
+    }
+    public static String post(String url) {
+        String result = "0";
+        CloseableHttpResponse response = null;
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        try {
+            // 创建uri
+            URIBuilder builder = new URIBuilder(url);
+            URI uri = builder.build();
+            // 创建http GET请求
+            HttpGet httpGet = new HttpGet(uri);
+            // 执行请求
+            response = httpclient.execute(httpGet);
+            if (response.getStatusLine().getStatusCode() == 200) {
+                result = EntityUtils.toString(response.getEntity(), "UTF-8");
+                result=result.substring(1,result.length()-1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }
