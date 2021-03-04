@@ -6,9 +6,35 @@
     <title>矿井 配置信息</title>
     <t:base type="jquery,easyui,tools,DatePicker"></t:base>
 </head>
+<script  type="text/javascript" src="plug-in/magicsuggest/magicsuggest-min.js"></script>
+<link href="plug-in/magicsuggest/magicsuggest.css" rel="stylesheet">
+<script type="text/javascript" src="webpage/common/js/magicSuggestSelect.js"></script>
 <script type="text/javascript">
+    var vioUnitsSelect;
+    var magicDisable = ${load eq 'detail'?'true':'false'};
     $(document).ready(function(){
+       // var vioUnitsSelect = getProvinceValue($("#vioUnitsSelect"), $("#belongmineinfo"),"${sysconfigPage.belongmineinfo}",magicDisable);
 
+         vioUnitsSelect = $('#vioUnitsSelect').magicSuggest({
+            allowFreeEntries: false,
+            data:'magicSelectController.do?getProvince',
+            valueField:'province',
+            value:[${temp}],
+            placeholder:'输入或选择',
+            maxSelection:10,
+            selectFirst: true,
+            matchField:['id'],
+            highlight: false,
+            displayField:'province'
+        });
+        $(vioUnitsSelect).on('selectionchange', function(e,m){
+            var obj = vioUnitsSelect.getSelection();
+            if(obj.length>0){
+                $("#belongmineinfo").val(vioUnitsSelect.getValue());
+            }else{
+                $("#belongmineinfo").val("");
+            }
+        });
     });
 
     function username(){
@@ -61,8 +87,10 @@
                 </label>
             </td>
             <td class="value">
-                <input class="inputxt" id="belongmineinfo" name="belongmineinfo" ignore="ignore"   style="width:250px;" value="${sysconfigPage.belongmineinfo}" />
+                <div id="vioUnitsSelect" style="width: 330px;height: 15px"></div>
+                <input id="belongmineinfo" name="belongmineinfo" type="hidden" datatype="*" value='${sysconfigPage.belongmineinfo}'>
                 <span class="Validform_checktip"></span>
+                <label class="Validform_label" style="display: none;">违章单位</label>
             </td>
         </tr>
         <tr>
@@ -83,8 +111,6 @@
                 </label>
             </td>
             <td class="value">
-                <input class="inputxt" id="port" name="port" ignore="ignore"  value="${sysconfigPage.port}" />
-                <span class="Validform_checktip"></span>
             </td>
         </tr>
             <%--<tr>
